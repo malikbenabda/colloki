@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 import java.io.File;
 
-import it.sauronsoftware.ftp4j.FTPClient;
 import trendy.coloc.tools.Upload;
 
 public class MainActivity extends AppCompatActivity {
@@ -55,21 +54,6 @@ public class MainActivity extends AppCompatActivity {
                 }catch (Exception x){
                     Toast.makeText(null,"cnt make file",Toast.LENGTH_SHORT);
                     Log.e("errer","cnt make file");             }
-
-            }
-        });
-
-
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              try {
-                  Upload up = new Upload();
-                  up.uploadImage(filepath,SERVERIP);
-                  Toast.makeText(null,"fileuploaded with success",Toast.LENGTH_SHORT).show();
-              }catch (Exception x) {
-
-              }
 
             }
         });

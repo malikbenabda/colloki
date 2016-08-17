@@ -24,7 +24,6 @@ public class Image {
     public void setCtx(Context ctx) {
         this.ctx = ctx;
     }
-    //
 
     private Context ctx;
 
@@ -96,22 +95,6 @@ public class Image {
     //Services
 
 
-    public Boolean removeImage(int id) {
-        return true;
-    }
-
-    public Image addImage(boolean cover, String url, int idAnnonce, String titre) {
-        return new Image();
-    }
-
-
-    //********************************
-    //
-    //
-    //
-    //
-    //
-    // Services
     public ArrayList<Image> getAllByIdAnnonce(int idAnnonce) {
         ArrayList<Image> images = new ArrayList<Image>();
         String result;
@@ -234,16 +217,17 @@ public class Image {
         return null;
     }
 
-    public Image updateImage(int id, boolean cover, String url, int idAnnonce, String titre) {
+    public Image updateImage(int id, boolean cover, String url, String titre, int idAnnonce) {
         String result;
+        String c;
         Image image = new Image();
         DataTask db = new DataTask(ctx);
-
-        String methode = "getOneByIdAnnonce";
+        if ( cover) c="1" ;else c="0";
+        String methode = "updateImage";
 
         try {
 
-            result = db.execute(methode, idAnnonce+"").get();
+            result = db.execute(methode, id+"",c,url,titre,idAnnonce+"" ).get();
 
             JSONArray ary_jsn = new JSONArray(result);
             JSONObject obj_jsn = ary_jsn.getJSONObject(0);
@@ -274,14 +258,74 @@ public class Image {
         return null;
     }
 
+    public Boolean removeImage(int id) {
+        String result;
+
+        DataTask db = new DataTask(ctx);
+        String methode = "removeImage";
+
+        try {
+
+            result = db.execute(methode, id+"").get();
+
+            JSONArray ary_jsn = new JSONArray(result);
+            JSONObject obj_jsn = ary_jsn.getJSONObject(0);
+            String response =  obj_jsn.get("response").toString();
+            if ( response.equalsIgnoreCase("success")) return true;
+            else return false;
 
 
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
+    public Image addImage(boolean cover, String url, String titre, int idAnnonce) {
+        String result;
+        String c;
+        Image image = new Image();
+        DataTask db = new DataTask(ctx);
+        if ( cover) c="1" ;else c="0";
+        String methode = "addImage";
+
+        try {
+
+            result = db.execute(methode,c,url,titre,idAnnonce+"" ).get();
+
+            JSONArray ary_jsn = new JSONArray(result);
+            JSONObject obj_jsn = ary_jsn.getJSONObject(0);
+
+            if (!obj_jsn.isNull("id")) {
+                image.setId((Integer) obj_jsn.get("id"));
+                image.setIdAnnonce((Integer) obj_jsn.get("idAnnonce"));
+                image.setTitre(obj_jsn.get("titre").toString());
+                image.setUrl(obj_jsn.get("url").toString());
+
+                if (obj_jsn.get("cover").toString().equals("1")) {
+                    image.setCover(true);
+                } else {
+                    image.setCover(false);
+                }
+
+                return image;
+            }
 
 
-
-
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
 
