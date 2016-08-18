@@ -136,7 +136,7 @@ public class Image {
         return images;
     }
 
-    public Image getOneByIdAnnonce(int idAnnonce) {
+    public Image getOneByIdAnnonce(int idAnnonce, int id) {
         String result;
         Image image = new Image();
         DataTask db = new DataTask(ctx);
@@ -145,7 +145,7 @@ public class Image {
 
         try {
 
-            result = db.execute(methode, idAnnonce+"").get();
+            result = db.execute(methode, idAnnonce + "", id + "").get();
 
             JSONArray ary_jsn = new JSONArray(result);
             JSONObject obj_jsn = ary_jsn.getJSONObject(0);
