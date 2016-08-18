@@ -7,7 +7,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import trendy.coloc.backgroundtask.DataTask;
@@ -25,7 +24,7 @@ public class Image {
         this.ctx = ctx;
     }
 
-    private Context ctx;
+    private Context ctx = null;
 
     private int id;
     private boolean cover;
@@ -105,7 +104,7 @@ public class Image {
 
         try {
 
-            result = db.execute(methode).get();
+            result = db.execute(methode, idAnnonce + "").get();
             JSONArray ary_jsn = new JSONArray(result);
 
             for (int i = 0; i < ary_jsn.length(); i++) {
