@@ -5,13 +5,20 @@ import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Created by malik on 19-Aug-16.
  */
 public class ConverterTools {
+
+
     public String ImageToString64(String imagePath) {
 
         BitmapFactory.Options options = null;
@@ -37,12 +44,26 @@ public class ConverterTools {
 
     }
 
+    /*This is used in annonce to convert properties set by user from a json objzct to map
+    * */
+    public static Map<String, String> JSONstringToMap(String jsonString) throws JSONException {
+        Map<String, String> map = new HashMap<String, String>();
 
-    public ArrayList jsonToArray(String source) {
+        JSONObject jsonObject = new JSONObject(jsonString);
+        if (jsonObject != JSONObject.NULL) {
+            Iterator<String> keysItr = jsonObject.keys();
+            while (keysItr.hasNext()) {
+                String key = keysItr.next();
+                String value = jsonObject.get(key).toString();
+                map.put(key, value);
 
+            }
+        }
+        return map;
+    }
 
-        return null;
-
+    public static String mapToJSONstring(Map<String, String> map) {
+        return new JSONObject(map).toString();
     }
 
 }
