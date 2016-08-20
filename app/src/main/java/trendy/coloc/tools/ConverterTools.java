@@ -48,17 +48,21 @@ public class ConverterTools {
     * */
     public static Map<String, String> JSONstringToMap(String jsonString) throws JSONException {
         Map<String, String> map = new HashMap<String, String>();
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            if (jsonObject != JSONObject.NULL) {
+                Iterator<String> keysItr = jsonObject.keys();
+                while (keysItr.hasNext()) {
+                    String key = keysItr.next();
+                    String value = jsonObject.get(key).toString();
+                    map.put(key, value);
 
-        JSONObject jsonObject = new JSONObject(jsonString);
-        if (jsonObject != JSONObject.NULL) {
-            Iterator<String> keysItr = jsonObject.keys();
-            while (keysItr.hasNext()) {
-                String key = keysItr.next();
-                String value = jsonObject.get(key).toString();
-                map.put(key, value);
-
+                }
             }
+        } finally {
+
         }
+
         return map;
     }
 

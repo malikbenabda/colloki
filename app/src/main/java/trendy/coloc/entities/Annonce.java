@@ -7,9 +7,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 import trendy.coloc.backgroundtask.DataTask;
+import trendy.coloc.tools.ConverterTools;
 
 /**
  * Created by malik on 19-Aug-16.
@@ -19,10 +22,18 @@ public class Annonce {
     private String titre;
     private String property;
     private String userId;
+    private Map<String, String> propMap;
     private int cityID;
     private float prix;
     private boolean state;
 
+    public Map<String, String> getPropMap() {
+        return propMap;
+    }
+
+    public void setPropMap(Map<String, String> propMap) {
+        this.propMap = propMap;
+    }
 
     public Context getCtx() {
         return ctx;
@@ -125,7 +136,7 @@ public class Annonce {
                 JSONObject obj_jsn = ary_jsn.getJSONObject(i);
                 annonce.setId((Integer) obj_jsn.get("id"));
                 annonce.setTitre(obj_jsn.get("titre").toString());
-                annonce.setProperty(obj_jsn.get("property").toString());
+                annonce.setProperty(obj_jsn.get("property").toString().toLowerCase().trim());
                 annonce.setUserId(obj_jsn.get("userId").toString());
                 annonce.setCityID((Integer) obj_jsn.get("cityId"));
                 annonce.setPrix((float) obj_jsn.get("prix"));
@@ -175,7 +186,7 @@ public class Annonce {
             if (!obj_jsn.isNull("id")) {
                 annonce.setId((Integer) obj_jsn.get("id"));
                 annonce.setTitre(obj_jsn.get("titre").toString());
-                annonce.setProperty(obj_jsn.get("property").toString());
+                annonce.setProperty(obj_jsn.get("property").toString().toLowerCase().trim());
                 annonce.setUserId(obj_jsn.get("userId").toString());
                 annonce.setCityID((Integer) obj_jsn.get("cityId"));
                 annonce.setPrix((float) obj_jsn.get("prix"));
@@ -314,6 +325,39 @@ public class Annonce {
         }
         return null;
     }
+
+    public ArrayList<Annonce> selectByProperties(ArrayList<Annonce> searchList, Map<String, String> propsSelection) throws JSONException {
+        ArrayList<Annonce> annonceArrayList = new ArrayList<Annonce>();
+        for (Annonce annonce : searchList) {
+            //parcourir liste des annnonces
+            Map<String, String> annonceProperty = ConverterTools.JSONstringToMap(annonce.property);
+            //parcourir liste des criteres de selection ( search options)
+            Set<Map.Entry<String, String>> options = propsSelection.entrySet();
+            if (isAllOptionsInProperty(options, annonceProperty)) {
+                annonceArrayList.add(annonce);
+            }
+        }
+        return annonceArrayList;
+    }
+
+    //check if all options are valid in this annonceProperty
+    //required for SelectByProperties
+    private static boolean isAllOptionsInProperty(Set<Map.Entry<String, String>> options, Map<String, String> annonceProperty) {
+        boolean result = true;
+        //for each option do test if it exists
+        for (Map.Entry<String, String> option : options) {
+            String optionKey = option.getKey().toLowerCase();
+            // if the seach option is not in annonce then the options do not confirm
+            if (!(annonceProperty.containsKey(optionKey))) return false;
+                // if the value of the option is not the same as user requested
+                // the entire options mark this annonce as non confirm
+            else if (!annonceProperty.get(optionKey).equalsIgnoreCase(option.getValue()))
+                return false;
+        }
+        return result;
+    }
+
+
 
 
 }
