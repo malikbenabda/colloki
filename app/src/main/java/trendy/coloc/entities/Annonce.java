@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
@@ -21,11 +22,14 @@ public class Annonce {
     private int id;
     private String titre;
     private String property;
-    private String userId;
+    private String user;
     private Map<String, String> propMap;
-    private int cityID;
+    private String city;
     private float prix;
     private boolean state;
+    private Date endDate;
+    private Date startDate;
+    private Date createdDate;
 
     public Map<String, String> getPropMap() {
         return propMap;
@@ -48,14 +52,14 @@ public class Annonce {
     public Annonce() {
     }
 
-    public Annonce(int id, String titre, float prix, boolean state, String property, String userId, int cityID) {
+    public Annonce(int id, String titre, float prix, boolean state, String property, String user, String city) {
         this.id = id;
         this.titre = titre;
         this.prix = prix;
         this.state = state;
         this.property = property;
-        this.userId = userId;
-        this.cityID = cityID;
+        this.user = user;
+        this.city = city;
     }
 
     public int getId() {
@@ -98,20 +102,20 @@ public class Annonce {
         this.property = property;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUser() {
+        return user;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUser(String user) {
+        this.user = user;
     }
 
-    public int getCityID() {
-        return cityID;
+    public String getCity() {
+        return city;
     }
 
-    public void setCityID(int cityID) {
-        this.cityID = cityID;
+    public void setCity(String city) {
+        this.city = city;
     }
 
 
@@ -137,8 +141,8 @@ public class Annonce {
                 annonce.setId((Integer) obj_jsn.get("id"));
                 annonce.setTitre(obj_jsn.get("titre").toString());
                 annonce.setProperty(obj_jsn.get("property").toString().toLowerCase().trim());
-                annonce.setUserId(obj_jsn.get("userId").toString());
-                annonce.setCityID((Integer) obj_jsn.get("cityId"));
+                annonce.setUser(obj_jsn.get("user").toString());
+                annonce.setCity(obj_jsn.get("city").toString());
                 annonce.setPrix((float) obj_jsn.get("prix"));
 
                 if (obj_jsn.get("state").toString().equals("1")) {
@@ -187,8 +191,8 @@ public class Annonce {
                 annonce.setId((Integer) obj_jsn.get("id"));
                 annonce.setTitre(obj_jsn.get("titre").toString());
                 annonce.setProperty(obj_jsn.get("property").toString().toLowerCase().trim());
-                annonce.setUserId(obj_jsn.get("userId").toString());
-                annonce.setCityID((Integer) obj_jsn.get("cityId"));
+                annonce.setUser(obj_jsn.get("user").toString());
+                annonce.setCity(obj_jsn.get("city").toString());
                 annonce.setPrix((float) obj_jsn.get("prix"));
 
                 if (obj_jsn.get("state").toString().equals("1")) {
@@ -211,7 +215,7 @@ public class Annonce {
         return null;
     }
 
-    public Annonce updateAnnonce(int id, String titre, String property, String userId, int cityID, float prix, boolean state) {
+    public Annonce updateAnnonce(int id, String titre, String property, String user, String city, float prix, boolean state) {
         String result;
         Annonce annonce = new Annonce();
         DataTask db = new DataTask(ctx);
@@ -222,7 +226,7 @@ public class Annonce {
 
         try {
 
-            result = db.execute(methode, id + "", titre, property, userId, cityID + "", prix + "", st).get();
+            result = db.execute(methode, id + "", titre, property, user, city, prix + "", st).get();
 
             JSONArray ary_jsn = new JSONArray(result);
             JSONObject obj_jsn = ary_jsn.getJSONObject(0);
@@ -231,8 +235,8 @@ public class Annonce {
                 annonce.setId((Integer) obj_jsn.get("id"));
                 annonce.setTitre(obj_jsn.get("titre").toString());
                 annonce.setProperty(obj_jsn.get("property").toString());
-                annonce.setUserId(obj_jsn.get("userId").toString());
-                annonce.setCityID((Integer) obj_jsn.get("cityId"));
+                annonce.setUser(obj_jsn.get("user").toString());
+                annonce.setCity(obj_jsn.get("city").toString());
                 annonce.setPrix((float) obj_jsn.get("prix"));
 
                 if (obj_jsn.get("state").toString().equals("1")) {
@@ -255,7 +259,7 @@ public class Annonce {
         return null;
     }
 
-    public Annonce addAnnonce(int id, String titre, String property, String userId, int cityID, float prix, boolean state) {
+    public Annonce addAnnonce(int id, String titre, String property, String user, String city, float prix, boolean state) {
         String result;
         Annonce annonce = new Annonce();
         DataTask db = new DataTask(ctx);
@@ -266,7 +270,7 @@ public class Annonce {
 
         try {
 
-            result = db.execute(methode, titre, property, userId, cityID + "", prix + "", st).get();
+            result = db.execute(methode, titre, property, user, city, prix + "", st).get();
 
             JSONArray ary_jsn = new JSONArray(result);
             JSONObject obj_jsn = ary_jsn.getJSONObject(0);
@@ -275,8 +279,8 @@ public class Annonce {
                 annonce.setId((Integer) obj_jsn.get("id"));
                 annonce.setTitre(obj_jsn.get("titre").toString());
                 annonce.setProperty(obj_jsn.get("property").toString());
-                annonce.setUserId(obj_jsn.get("userId").toString());
-                annonce.setCityID((Integer) obj_jsn.get("cityId"));
+                annonce.setUser(obj_jsn.get("user").toString());
+                annonce.setCity(obj_jsn.get("city").toString());
                 annonce.setPrix((float) obj_jsn.get("prix"));
 
                 if (obj_jsn.get("state").toString().equals("1")) {
@@ -326,6 +330,9 @@ public class Annonce {
         return null;
     }
 
+
+    //** Recherche*****************************************************************
+
     public ArrayList<Annonce> selectByProperties(ArrayList<Annonce> searchList, Map<String, String> propsSelection) throws JSONException {
         ArrayList<Annonce> annonceArrayList = new ArrayList<Annonce>();
         for (Annonce annonce : searchList) {
@@ -356,6 +363,9 @@ public class Annonce {
         }
         return result;
     }
+
+////////////////************************************************************************
+    //recherche REMAKE
 
 
 
