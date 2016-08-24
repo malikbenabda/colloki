@@ -21,23 +21,16 @@ import trendy.coloc.tools.ConverterTools;
 public class Annonce {
     private int id;
     private String titre;
-    private String property;
-    private String user;
-    private Map<String, String> propMap;
+
     private String city;
     private float prix;
     private boolean state;
     private Date endDate;
     private Date startDate;
     private Date createdDate;
+    private String property;
+    private String user;
 
-    public Map<String, String> getPropMap() {
-        return propMap;
-    }
-
-    public void setPropMap(Map<String, String> propMap) {
-        this.propMap = propMap;
-    }
 
     public Context getCtx() {
         return ctx;
@@ -52,14 +45,18 @@ public class Annonce {
     public Annonce() {
     }
 
-    public Annonce(int id, String titre, float prix, boolean state, String property, String user, String city) {
+    public Annonce(int id, String titre, String property, String user, String city, float prix, boolean state, Date endDate, Date startDate, Date createdDate, Context ctx) {
         this.id = id;
         this.titre = titre;
-        this.prix = prix;
-        this.state = state;
         this.property = property;
         this.user = user;
         this.city = city;
+        this.prix = prix;
+        this.state = state;
+        this.endDate = endDate;
+        this.startDate = startDate;
+        this.createdDate = createdDate;
+        this.ctx = ctx;
     }
 
     public int getId() {
@@ -84,6 +81,30 @@ public class Annonce {
 
     public void setPrix(float prix) {
         this.prix = prix;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     public boolean isState() {
@@ -133,7 +154,7 @@ public class Annonce {
         String methode = "getAllByKey";
 
         try {
-            result = db.execute(methode, key + "", value + "").get();
+            result = db.execute(methode, key ,value).get();
             JSONArray ary_jsn = new JSONArray(result);
 
             for (int i = 0; i < ary_jsn.length(); i++) {
@@ -144,6 +165,9 @@ public class Annonce {
                 annonce.setUser(obj_jsn.get("user").toString());
                 annonce.setCity(obj_jsn.get("city").toString());
                 annonce.setPrix((float) obj_jsn.get("prix"));
+                annonce.setStartDate(ConverterTools.stringToDate( obj_jsn.get("startDate").toString()) ) ;
+                annonce.setEndDate(ConverterTools.stringToDate( obj_jsn.get("endDate").toString()) ) ;
+                annonce.setCreatedDate(ConverterTools.stringToDate( obj_jsn.get("createdDate").toString()) ); ;
 
                 if (obj_jsn.get("state").toString().equals("1")) {
                     annonce.setState(true);
@@ -173,6 +197,68 @@ public class Annonce {
         return annonces;
     }
 
+    /**
+     * json string is formatted : {"key":"value,"jey2":"value2"}
+     * @param jsonString
+     * @return
+     */
+    public ArrayList<Annonce> getAllByKeys(String jsonString) {
+        ArrayList<Annonce> annonces = new ArrayList<Annonce>();
+        String result;
+        Annonce annonce = new Annonce();
+        DataTask db = new DataTask(ctx);
+
+        String methode = "getAllByKey";
+
+        try {
+            result = db.execute(methode, jsonString).get();
+            JSONArray ary_jsn = new JSONArray(result);
+
+            for (int i = 0; i < ary_jsn.length(); i++) {
+                JSONObject obj_jsn = ary_jsn.getJSONObject(i);
+                annonce.setId((Integer) obj_jsn.get("id"));
+                annonce.setTitre(obj_jsn.get("titre").toString());
+                annonce.setProperty(obj_jsn.get("property").toString().toLowerCase().trim());
+                annonce.setUser(obj_jsn.get("user").toString());
+                annonce.setCity(obj_jsn.get("city").toString());
+                annonce.setPrix((float) obj_jsn.get("prix"));
+                annonce.setStartDate(ConverterTools.stringToDate( obj_jsn.get("startDate").toString()) ) ;
+                annonce.setEndDate(ConverterTools.stringToDate( obj_jsn.get("endDate").toString()) ) ;
+                annonce.setCreatedDate(ConverterTools.stringToDate( obj_jsn.get("createdDate").toString()) ); ;
+
+                if (obj_jsn.get("state").toString().equals("1")) {
+                    annonce.setState(true);
+                } else {
+                    annonce.setState(false);
+                }
+
+                annonces.add(annonce);
+            }
+
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+/* sort by key
+   Collections.sort(annonces, new Comparator<Annonce>() {
+            @Override
+            public int compare(Annonce lhs, Annonce rhs) {
+                return return lhs.key>rhs.key;
+            }
+        });
+  */
+        return annonces;
+    }
+
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Annonce getOneById(int id) {
         String result;
         Annonce annonce = new Annonce();
@@ -194,6 +280,9 @@ public class Annonce {
                 annonce.setUser(obj_jsn.get("user").toString());
                 annonce.setCity(obj_jsn.get("city").toString());
                 annonce.setPrix((float) obj_jsn.get("prix"));
+                annonce.setStartDate(ConverterTools.stringToDate( obj_jsn.get("startDate").toString()) ) ;
+                annonce.setEndDate(ConverterTools.stringToDate( obj_jsn.get("endDate").toString()) ) ;
+                annonce.setCreatedDate(ConverterTools.stringToDate( obj_jsn.get("createdDate").toString()) ); ;
 
                 if (obj_jsn.get("state").toString().equals("1")) {
                     annonce.setState(true);
@@ -215,18 +304,35 @@ public class Annonce {
         return null;
     }
 
-    public Annonce updateAnnonce(int id, String titre, String property, String user, String city, float prix, boolean state) {
+    /**
+     *
+     * @param id
+     * @param titre
+     * @param property
+     * @param user
+     * @param city
+     * @param prix
+     * @param state
+     * @return @Annonce_updated
+     */
+    public Annonce updateAnnonce(int id, String titre, String property, String user, String city, float prix, boolean state,
+                                 Date createdDate, Date startDate, Date endDate ) {
         String result;
         Annonce annonce = new Annonce();
         DataTask db = new DataTask(ctx);
         String st = "";
         if (state) st = "1";
         else st = "0";
+
+        String createdDate_S = ConverterTools.DateToString(createdDate);
+        String startDate_S = ConverterTools.DateToString(startDate);
+        String endDate_S = ConverterTools.DateToString(endDate);
         String methode = "updateAnnonce";
 
         try {
 
-            result = db.execute(methode, id + "", titre, property, user, city, prix + "", st).get();
+            result = db.execute(methode,Integer.toString(id), titre, property, user, city, String.valueOf(prix), st
+            ,createdDate_S,startDate_S,endDate_S).get();
 
             JSONArray ary_jsn = new JSONArray(result);
             JSONObject obj_jsn = ary_jsn.getJSONObject(0);
@@ -238,6 +344,9 @@ public class Annonce {
                 annonce.setUser(obj_jsn.get("user").toString());
                 annonce.setCity(obj_jsn.get("city").toString());
                 annonce.setPrix((float) obj_jsn.get("prix"));
+                annonce.setStartDate(ConverterTools.stringToDate( obj_jsn.get("startDate").toString()) ) ;
+                annonce.setEndDate(ConverterTools.stringToDate( obj_jsn.get("endDate").toString()) ) ;
+                annonce.setCreatedDate(ConverterTools.stringToDate( obj_jsn.get("createdDate").toString()) ); ;
 
                 if (obj_jsn.get("state").toString().equals("1")) {
                     annonce.setState(true);
@@ -259,7 +368,7 @@ public class Annonce {
         return null;
     }
 
-    public Annonce addAnnonce(int id, String titre, String property, String user, String city, float prix, boolean state) {
+    public Annonce addAnnonce(int id, String titre, String property, String user, String city, float prix, boolean state ,  Date createdDate, Date startDate, Date endDate) {
         String result;
         Annonce annonce = new Annonce();
         DataTask db = new DataTask(ctx);
@@ -267,10 +376,12 @@ public class Annonce {
         if (state) st = "1";
         else st = "0";
         String methode = "addAnnonce";
-
+        String createdDate_S = ConverterTools.DateToString(createdDate);
+        String startDate_S = ConverterTools.DateToString(startDate);
+        String endDate_S = ConverterTools.DateToString(endDate);
         try {
 
-            result = db.execute(methode, titre, property, user, city, prix + "", st).get();
+            result = db.execute(methode, titre, property, user, city, String.valueOf(prix), st, createdDate_S,startDate_S,endDate_S).get();
 
             JSONArray ary_jsn = new JSONArray(result);
             JSONObject obj_jsn = ary_jsn.getJSONObject(0);
@@ -282,6 +393,9 @@ public class Annonce {
                 annonce.setUser(obj_jsn.get("user").toString());
                 annonce.setCity(obj_jsn.get("city").toString());
                 annonce.setPrix((float) obj_jsn.get("prix"));
+                annonce.setStartDate(ConverterTools.stringToDate( obj_jsn.get("startDate").toString()) ) ;
+                annonce.setEndDate(ConverterTools.stringToDate( obj_jsn.get("endDate").toString()) ) ;
+                annonce.setCreatedDate(ConverterTools.stringToDate( obj_jsn.get("createdDate").toString()) ); ;
 
                 if (obj_jsn.get("state").toString().equals("1")) {
                     annonce.setState(true);

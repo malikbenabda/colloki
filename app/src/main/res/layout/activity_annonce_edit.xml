@@ -29,11 +29,6 @@
                 android:id="@+id/sendbtn"
                 android:layout_gravity="center_horizontal" />
 
-            <Button
-                android:layout_width="353dp"
-                android:layout_height="wrap_content"
-                android:text="New Button"
-                android:id="@+id/button3" />
 
             <LinearLayout
                 android:id="@+id/parameter"

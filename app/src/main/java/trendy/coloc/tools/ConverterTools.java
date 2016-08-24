@@ -9,6 +9,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -18,6 +20,7 @@ import java.util.Map;
  */
 public class ConverterTools {
 
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
 
     public String ImageToString64(String imagePath) {
 
@@ -69,5 +72,28 @@ public class ConverterTools {
     public static String mapToJSONstring(Map<String, String> map) {
         return new JSONObject(map).toString();
     }
+
+
+    public static Date stringToDate(String dateString) {
+        Date convertedCurrentDate = new Date();
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+            convertedCurrentDate = sdf.parse(dateString);
+
+        } catch (Exception x) {
+        }
+
+        return convertedCurrentDate;
+    }
+
+
+    public static String DateToString(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+        return sdf.format(date);
+    }
+
+
+
+
 
 }
