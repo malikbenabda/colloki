@@ -45,6 +45,18 @@ public class Annonce {
     public Annonce() {
     }
 
+    public Annonce(String titre, String city, float prix, boolean state, Date endDate, Date startDate, Date createdDate, String property, String user) {
+        this.titre = titre;
+        this.city = city;
+        this.prix = prix;
+        this.state = state;
+        this.endDate = endDate;
+        this.startDate = startDate;
+        this.createdDate = createdDate;
+        this.property = property;
+        this.user = user;
+    }
+
     public Annonce(int id, String titre, String property, String user, String city, float prix, boolean state, Date endDate, Date startDate, Date createdDate, Context ctx) {
         this.id = id;
         this.titre = titre;

@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -81,6 +82,7 @@ public class ConverterTools {
             convertedCurrentDate = sdf.parse(dateString);
 
         } catch (Exception x) {
+            Toast.makeText(null, "Date Format Erroné", Toast.LENGTH_SHORT).show();
         }
 
         return convertedCurrentDate;

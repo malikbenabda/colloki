@@ -15,8 +15,11 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import trendy.coloc.entities.Annonce;
 import trendy.coloc.entities.Property;
 import trendy.coloc.tools.AnnonceTools;
 
@@ -24,17 +27,55 @@ public class AnnonceEdit extends Activity {
     Button add, send;
     private final int ID_KEY_MARGIN = 10000;
     private final int ID_VALUE_MARGIN = 10000;
-    EditText titre, prix, chambres, dateStart, dateEnd, ftag, fvalue;
-
+    EditText titreET, prix, chambres, dateStart, dateEnd, ftag, fvalue;
+    Spinner ville;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_ajout_annonce);
+        titreET = (EditText) findViewById(R.id.titreET);
+        prix = (EditText) findViewById(R.id.priceET);
+        chambres = (EditText) findViewById(R.id.chambresET);
+        dateStart = (EditText) findViewById(R.id.dateStartET);
+        dateEnd = (EditText) findViewById(R.id.dateEndET);
+
+        dateStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(AnnonceEdit.this, "HELOOO", Toast.LENGTH_SHORT).show();
+                   /*   DatePickerDialog dialog = new DatePickerDialog(getApplicationContext(), new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                dateEnd.setText(year+"-"+monthOfYear+"-"+dayOfMonth);
+                            }
+                        }, 2016, 1, 1);
+                        dialog.show();
+*/
+            }
+        });
         add = (Button) findViewById(R.id.btnAddCriterias);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addDiologue();
+            }
+        });
+        send = (Button) findViewById(R.id.sendbtn);
+        send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Annonce annonce = new Annonce();
+
+                ville = (Spinner) findViewById(R.id.villeSpinner);
+                String msg = "Veuillez saisir un";
+                String titre = titreET.getText().toString();
+                float prix = Float.parseFloat(titreET.getText().toString());
+                String chambre = chambres.getText().toString();
+
+                if (titre.isEmpty()) {
+                    Toast.makeText(AnnonceEdit.this, msg + " Titre d'annonce", Toast.LENGTH_SHORT).show();
+                } else {
+                }
 
 
             }
