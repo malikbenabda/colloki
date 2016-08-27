@@ -163,7 +163,7 @@ public class Annonce {
         Annonce annonce = new Annonce();
         DataTask db = new DataTask(ctx);
 
-        String methode = "getAllByKey";
+        String methode = "getAllAnnoncesByKey";
 
         try {
             result = db.execute(methode, key ,value).get();
@@ -220,7 +220,7 @@ public class Annonce {
         Annonce annonce = new Annonce();
         DataTask db = new DataTask(ctx);
 
-        String methode = "getAllByKey";
+            String methode = "getAllAnnoncesByKeys";
 
         try {
             result = db.execute(methode, jsonString).get();
@@ -276,11 +276,11 @@ public class Annonce {
         Annonce annonce = new Annonce();
         DataTask db = new DataTask(ctx);
 
-        String methode = "getOneById";
+        String methode = "getAnnonceById";
 
         try {
 
-            result = db.execute(methode, id + "").get();
+            result = db.execute(methode, Integer.toString(id)).get();
 
             JSONArray ary_jsn = new JSONArray(result);
             JSONObject obj_jsn = ary_jsn.getJSONObject(0);

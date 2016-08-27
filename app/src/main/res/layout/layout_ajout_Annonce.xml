@@ -15,8 +15,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingTop="5dip"
-            android:paddingBottom="5dip">
+            android:paddingBottom="5dip"
+            android:paddingTop="5dip">
             <!-- Logo Start-->
 
             <!-- Logo Ends -->
@@ -27,61 +27,61 @@
             android:id="@+id/footer"
             android:layout_width="fill_parent"
             android:layout_height="90dip"
-            android:orientation="horizontal"
-            android:layout_alignParentBottom="true"></LinearLayout>
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"></LinearLayout>
         <!-- Footer Ends -->
 
         <!-- Login Form -->
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dip"
+            android:layout_below="@id/header"
+            android:orientation="vertical"
 
-            android:layout_below="@id/header">
+            android:padding="10dip">
             <!--  Email Label -->
 
             <TextView
                 android:layout_width="258dp"
                 android:layout_height="50dp"
-                android:textSize="24dp"
-                android:textColor="#372c24"
                 android:layout_gravity="center"
-                android:text="Creation Annonce" />
+                android:text="Creation Annonce"
+                android:textColor="#372c24"
+                android:textSize="24dp" />
 
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#372c24"
-                android:text="ville" />
+                android:text="Region"
+                android:textColor="#372c24" />
 
 
             <Spinner
                 android:id="@+id/villeSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:entries="@array/villes_arrays"
                 android:layout_marginTop="6dp"
+                android:entries="@array/villes_arrays"
                 android:prompt="@string/villes_prompt"
-                android:spinnerMode="dialog" />
+                android:spinnerMode="dropdown" />
 
 
             <TextView
+                android:id="@+id/titre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#372c24"
+                android:editable="false"
                 android:text="Titre"
-                android:id="@+id/titre"
-                android:editable="false" />
+                android:textColor="#372c24" />
 
             <EditText
+                android:id="@+id/titreET"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dip"
-                android:id="@+id/titreET"
-                android:inputType="textAutoComplete"
                 android:layout_marginBottom="20dip"
+                android:layout_marginTop="5dip"
+                android:inputType="textAutoComplete"
                 android:singleLine="true" />
 
             <!--  Password Label -->
@@ -89,88 +89,109 @@
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#372c24"
-                android:text="Prix de Loyer" />
+                android:text="Prix de Loyer"
+                android:textColor="#372c24" />
 
             <!-- Login button -->
 
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:ems="10"
                 android:id="@+id/priceET"
-                android:layout_gravity="center_horizontal" />
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#372c24"
-                android:inputType="number"
-                android:text="Nombre de Chambres"
-                android:id="@+id/textView3" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:ems="10"
-                android:id="@+id/chambresET"
-                android:layout_gravity="center_horizontal" />
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dip"
-                android:layout_below="@id/header">
-
-                <TextView
-                    android:layout_marginTop="5dp"
-                    android:layout_width="155dp"
-                    android:layout_height="wrap_content"
-                    android:textColor="#372c24"
-                    android:text="Date Début"
-
-                    android:id="@+id/dateText1" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="date"
-                    android:ems="10"
-                    android:id="@+id/dateStartET"
-                    android:layout_gravity="center_horizontal" />
-
-
-                <TextView
-                    android:layout_marginTop="5dp"
-                    android:layout_width="155dp"
-
-                    android:layout_height="wrap_content"
-                    android:textColor="#372c24"
-                    android:text="Date Fin"
-
-                    android:id="@+id/dateText2" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-
-                    android:id="@+id/dateEndET"
-                    android:layout_gravity="center_horizontal" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:focusable="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:id="@+id/optionsLayout"></LinearLayout>
+                android:ems="10"
+                android:inputType="numberDecimal" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text="Nombre de Chambres"
+                android:textColor="#372c24" />
+
+            <EditText
+                android:id="@+id/chambresET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:ems="10"
+                android:inputType="numberDecimal" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/header"
+                android:orientation="vertical"
+                android:padding="10dip">
+
+                <TextView
+                    android:id="@+id/dateText1"
+                    android:layout_width="155dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Date Début"
+
+                    android:textColor="#372c24" />
+
+                <EditText
+                    android:id="@+id/dateStartET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:ems="10"
+                    android:inputType="date" />
+
+
+                <TextView
+                    android:id="@+id/dateText2"
+                    android:layout_width="155dp"
+
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Date Fin"
+
+                    android:textColor="#372c24" />
+
+                <EditText
+                    android:id="@+id/dateEndET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:inputType="text" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text="Description"
+                android:textColor="#372c24" />
+
+            <EditText
+                android:id="@+id/descriptionET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="top|left"
+                android:inputType="textAutoComplete|textMultiLine"
+                android:singleLine="false"
+
+                android:minLines="2"
+                android:scrollbars="vertical" />
+
+            <LinearLayout
+                android:id="@+id/optionsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:focusable="false"
+                android:orientation="vertical">
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btnAddCriterias"

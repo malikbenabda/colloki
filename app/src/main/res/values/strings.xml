@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Coloc</string>
-    <string name="villes_prompt">Nabeul</string>
+    <string name="villes_prompt">Region</string>
+
 </resources>

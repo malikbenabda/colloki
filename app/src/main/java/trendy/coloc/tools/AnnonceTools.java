@@ -13,6 +13,7 @@ public class AnnonceTools {
 
 
     public static ArrayList<Property> tempProps = new ArrayList<Property>();
+    public static List<String> villes = Arrays.asList("sousse,", "nabel", "sfax");
 
     public final static String[] TagSuggestions = new String[]{
             "Belgium", "France", "Italy", "Germany", "Spain", "aaaa", "abbbb", "aabbb", "abbaaa"

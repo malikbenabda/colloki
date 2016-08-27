@@ -100,7 +100,7 @@ public class Image {
         Image image = new Image();
         DataTask db = new DataTask(ctx);
 
-        String methode = "getAllByIdAnnonce";
+        String methode = "getAllImagesByIdAnnonce";
 
         try {
 
@@ -141,7 +141,7 @@ public class Image {
         Image image = new Image();
         DataTask db = new DataTask(ctx);
 
-        String methode = "getOneByIdAnnonce";
+        String methode = "getOneImageByIdAnnonce";
 
         try {
 

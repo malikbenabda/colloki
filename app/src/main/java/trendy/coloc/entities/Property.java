@@ -56,10 +56,14 @@ public class Property {
         this.idkey = idkey;
     }
 
+    public Property() {
+    }
+
     public Property(String key, String value, int order, int idvalue, int idkey) {
 
         this.key = key;
         this.value = value;
+
         this.order = order;
         this.idvalue = idvalue;
         this.idkey = idkey;
@@ -72,5 +76,23 @@ public class Property {
 
     private int idvalue;
     private int idkey;
+    private int removebtn;
 
+    public int getRemovebtn() {
+        return removebtn;
+    }
+
+    private int idOptionLayout;
+
+    public int getIdOptionLayout() {
+        return idOptionLayout;
+    }
+
+    public void setIdOptionLayout(int idOptionLayout) {
+        this.idOptionLayout = idOptionLayout;
+    }
+
+    public void setRemovebtn(int removebtn) {
+        this.removebtn = removebtn;
+    }
 }

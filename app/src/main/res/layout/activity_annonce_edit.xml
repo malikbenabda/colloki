@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
 
-    tools:context="trendy.coloc.AnnonceEdit">
+    tools:context=".AnnonceAjout">
 
     <ScrollView
         android:layout_width="match_parent"
