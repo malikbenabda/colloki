@@ -56,6 +56,8 @@ public class AnnonceEdit extends Activity {
         TextView pt = (TextView) findViewById(R.id.pageTitle);
         pt.setText("edition d'annonce");
 
+        AnnonceTools.tempProps = new ArrayList<Property>();
+
 
         titreET = (EditText) findViewById(R.id.titreET);
         prixET = (EditText) findViewById(R.id.priceET);
@@ -286,6 +288,7 @@ public class AnnonceEdit extends Activity {
         parm.width = 150;
         parm.setMargins(50, 25, 50, 25);
         removebtn.setLayoutParams(parm);
+        removebtn.setBackgroundResource(R.drawable.removeicon);
         removebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

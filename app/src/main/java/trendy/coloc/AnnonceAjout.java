@@ -52,6 +52,8 @@ public class AnnonceAjout extends Activity {
         TextView pt = (TextView) findViewById(R.id.pageTitle);
         pt.setText("Creation d'annonce");
 
+        AnnonceTools.tempProps = new ArrayList<Property>();
+
         titreET = (EditText) findViewById(R.id.titreET);
         prixET = (EditText) findViewById(R.id.priceET);
         chambresET = (EditText) findViewById(R.id.chambresET);
@@ -245,6 +247,8 @@ public class AnnonceAjout extends Activity {
         parm.height = 100;
         parm.width = 150;
         parm.setMargins(50, 25, 50, 25);
+
+        removebtn.setBackgroundResource(R.drawable.removeicon);
         removebtn.setLayoutParams(parm);
         removebtn.setOnClickListener(new View.OnClickListener() {
             @Override

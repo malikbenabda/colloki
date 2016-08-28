@@ -47,7 +47,8 @@
                 android:layout_gravity="center"
                 android:text="Creation Annonce"
                 android:textColor="#372c24"
-                android:textSize="24dp" />
+                android:textSize="24dp"
+                android:id="@+id/pageTitle" />
 
 
             <TextView
@@ -103,22 +104,6 @@
                 android:ems="10"
                 android:inputType="numberDecimal" />
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:text="Nombre de Chambres"
-                android:textColor="#372c24" />
-
-            <EditText
-                android:id="@+id/chambresET"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:ems="10"
-                android:inputType="numberDecimal" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -164,6 +149,22 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/textView3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text="Nombre de Chambres"
+                android:textColor="#372c24" />
+
+            <EditText
+                android:id="@+id/chambresET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:ems="10"
+                android:inputType="numberDecimal" />
+
+            <TextView
                 android:id="@+id/textView4"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -180,7 +181,7 @@
                 android:inputType="textAutoComplete|textMultiLine"
                 android:singleLine="false"
 
-                android:minLines="2"
+                android:minLines="3"
                 android:scrollbars="vertical" />
 
             <LinearLayout
