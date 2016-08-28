@@ -27,6 +27,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Map;
 
 import trendy.coloc.entities.Annonce;
 import trendy.coloc.entities.Property;
@@ -34,12 +36,14 @@ import trendy.coloc.tools.AnnonceTools;
 import trendy.coloc.tools.ConverterTools;
 import trendy.coloc.tools.SaveSharedPreference;
 
-public class AnnonceAjout extends Activity {
+public class AnnonceEdit extends Activity {
     Button add, send;
     private final int ID_KEY_MARGIN = 1000;
     private final int ID_VALUE_MARGIN = 10000;
     private final int ID_DELETE_MARGIN = 20000;
     private final int ID_OPTIONLAYOUT_MARGIN = 30000;
+    private Annonce editedAnnonce;
+
 
     EditText titreET, descriptionET, prixET, chambresET, dateStartET, dateEndET, ftagET, fvalueET;
     Spinner ville;
@@ -50,7 +54,8 @@ public class AnnonceAjout extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_ajout_annonce);
         TextView pt = (TextView) findViewById(R.id.pageTitle);
-        pt.setText("Creation d'annonce");
+        pt.setText("edition d'annonce");
+
 
         titreET = (EditText) findViewById(R.id.titreET);
         prixET = (EditText) findViewById(R.id.priceET);
@@ -59,15 +64,49 @@ public class AnnonceAjout extends Activity {
         dateStartET = (EditText) findViewById(R.id.dateStartET);
         dateEndET = (EditText) findViewById(R.id.dateEndET);
         ville = (Spinner) findViewById(R.id.villeSpinner);
+
+
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, AnnonceTools.villes);
         //selected item will look like a spinner set from XML
         ville.setAdapter(spinnerArrayAdapter);
         dateStartET.setFocusable(false);
         dateEndET.setFocusable(false);
+
+        /**
+         * testing
+         */
+
+
+        editedAnnonce = new Annonce();
+        editedAnnonce.setCity("sfax");
+        editedAnnonce.setTitre("vcxvx");
+        editedAnnonce.setState(true);
+        editedAnnonce.setEndDate(new Date());
+        editedAnnonce.setStartDate(new Date());
+        editedAnnonce.setPrix(3.55f);
+        JSONObject a = new JSONObject();
+        try {
+            a.put("description", "dqsdqsd");
+            a.put("chambres", "5");
+            a.put("klab", "eyh");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        editedAnnonce.setProperty(a.toString());
+        if (editedAnnonce != null) {
+
+
+            fillupForm();
+
+
+        } else
+            Toast.makeText(AnnonceEdit.this, "Annonce Vide", Toast.LENGTH_SHORT).show();
+
+
         dateStartET.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(AnnonceAjout.this, "HELLO", Toast.LENGTH_SHORT).show();
                 DatePickerDialog dialog = new DatePickerDialog(v.getContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -111,17 +150,17 @@ public class AnnonceAjout extends Activity {
                 String msg = "Veuillez saisir ";
 
                 if (titre.isEmpty()) {
-                    Toast.makeText(AnnonceAjout.this, msg + "le Titre d'annonce", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AnnonceEdit.this, msg + "le Titre d'annonce", Toast.LENGTH_SHORT).show();
                 } else if (prix < 1f) {
-                    Toast.makeText(AnnonceAjout.this, msg + "le Prix de Loyer", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AnnonceEdit.this, msg + "le Prix de Loyer", Toast.LENGTH_SHORT).show();
                 } else if (nbrchambre < 1) {
-                    Toast.makeText(AnnonceAjout.this, msg + "le nombre des chambres", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AnnonceEdit.this, msg + "le nombre des chambres", Toast.LENGTH_SHORT).show();
                 } else if (dateStart_s.isEmpty()) {
-                    Toast.makeText(AnnonceAjout.this, msg + "la date de début de location", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AnnonceEdit.this, msg + "la date de début de location", Toast.LENGTH_SHORT).show();
                 } else if (dateEnd_s.isEmpty()) {
-                    Toast.makeText(AnnonceAjout.this, msg + "la date de fin de location", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AnnonceEdit.this, msg + "la date de fin de location", Toast.LENGTH_SHORT).show();
                 } else if (ConverterTools.stringToDate(dateEnd_s).before(ConverterTools.stringToDate(dateStart_s))) {
-                    Toast.makeText(AnnonceAjout.this, msg + "la date de fin doit etre apres la date de debut de location", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AnnonceEdit.this, msg + "la date de fin doit etre apres la date de debut de location", Toast.LENGTH_SHORT).show();
                 } else {
                     //add shit to annonce :)
                     annonce.setCreatedDate(Calendar.getInstance().getTime());
@@ -137,6 +176,7 @@ public class AnnonceAjout extends Activity {
 
                     try {
                         options.put("description", description);
+                        options.put("chambres", nbrchambre);
                         for (Property x : AnnonceTools.tempProps) {
                             String key = ((TextView) findViewById(x.getIdkey())).getText().toString();
                             String value = ((EditText) findViewById(x.getIdvalue())).getText().toString();
@@ -161,7 +201,7 @@ public class AnnonceAjout extends Activity {
 
 
     private void addDiologue() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(AnnonceAjout.this);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(AnnonceEdit.this);
         LayoutInflater inflater = this.getLayoutInflater();
 
 
@@ -240,7 +280,7 @@ public class AnnonceAjout extends Activity {
 
         TextView removebtn = new TextView(getApplicationContext());
         removebtn.setBackgroundColor(Color.RED);
-        removebtn.setText("Del");
+        removebtn.setText(" X ");
         parm = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         parm.height = 100;
         parm.width = 150;
@@ -268,6 +308,30 @@ public class AnnonceAjout extends Activity {
         tab.setId(ID_OPTIONLAYOUT_MARGIN + order);
         p.setIdOptionLayout(ID_OPTIONLAYOUT_MARGIN + order);
         optionsLayout.addView(tab);
+
+    }
+
+
+    private void fillupForm() {
+        titreET.setText(editedAnnonce.getTitre());
+        prixET.setText(Float.toString(editedAnnonce.getPrix()));
+        ville.setSelection(AnnonceTools.indexOfItem(editedAnnonce.getCity(), AnnonceTools.villes));
+        dateStartET.setText(ConverterTools.DateToString(editedAnnonce.getStartDate()));
+        dateEndET.setText(ConverterTools.DateToString(editedAnnonce.getEndDate()));
+        Map<String, String> annonceProps = ConverterTools.JSONstringToMap(editedAnnonce.getProperty());
+
+
+        descriptionET.setText(annonceProps.get("description"));
+        chambresET.setText(annonceProps.get("chambres"));
+
+        for (Map.Entry<String, String> prop : annonceProps.entrySet()) {
+            String k = prop.getKey();
+            String v = prop.getValue();
+            if (!k.equalsIgnoreCase("description") && !k.equalsIgnoreCase("chambres")) {
+                addTab(k, v);
+            }
+        }
+
 
     }
 

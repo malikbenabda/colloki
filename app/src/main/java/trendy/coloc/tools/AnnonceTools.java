@@ -13,11 +13,18 @@ public class AnnonceTools {
 
 
     public static ArrayList<Property> tempProps = new ArrayList<Property>();
-    public static List<String> villes = Arrays.asList("sousse,", "nabel", "sfax");
+    public static List<String> villes = Arrays.asList("sousse", "nabel", "sfax");
 
-    public final static String[] TagSuggestions = new String[]{
+    public final static String[] keySuggestions = new String[]{
             "Belgium", "France", "Italy", "Germany", "Spain", "aaaa", "abbbb", "aabbb", "abbaaa"
     };
-    public static List<String> tags = Arrays.asList("Dogs", "Smoker", "drinking");
 
+    public static int indexOfItem(String key, List<String> list) {
+        int pos = -1;
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).equalsIgnoreCase(key)) ;
+            pos = i;
+        }
+        return pos;
+    }
 }

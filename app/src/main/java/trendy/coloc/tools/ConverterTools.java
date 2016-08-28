@@ -11,10 +11,13 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
+import trendy.coloc.entities.Property;
 
 /**
  * Created by malik on 19-Aug-16.
@@ -50,7 +53,7 @@ public class ConverterTools {
 
     /*This is used in annonce to convert properties set by user from a json objzct to map
     * */
-    public static Map<String, String> JSONstringToMap(String jsonString) throws JSONException {
+    public static Map<String, String> JSONstringToMap(String jsonString) {
         Map<String, String> map = new HashMap<String, String>();
         try {
             JSONObject jsonObject = new JSONObject(jsonString);
@@ -63,8 +66,8 @@ public class ConverterTools {
 
                 }
             }
-        } finally {
-
+        } catch (JSONException x) {
+            Toast.makeText(null, "JsonString to map convertion failed", Toast.LENGTH_SHORT).show();
         }
 
         return map;
@@ -92,6 +95,27 @@ public class ConverterTools {
     public static String DateToString(Date date) {
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
         return sdf.format(date);
+    }
+
+
+    public static ArrayList<Property> jsonStringToPropertiesArray(String jsonString) {
+        ArrayList<Property> jsonArray = new ArrayList<Property>();
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            if (jsonObject != JSONObject.NULL) {
+                Iterator<String> keysItr = jsonObject.keys();
+                while (keysItr.hasNext()) {
+                    String key = keysItr.next();
+                    String value = jsonObject.get(key).toString();
+                    AnnonceTools.tempProps.add(new Property(key, value));
+
+                }
+            }
+        } catch (JSONException x) {
+            Toast.makeText(null, "JsonString to map convertion failed", Toast.LENGTH_SHORT).show();
+        }
+        return jsonArray;
+
     }
 
 
