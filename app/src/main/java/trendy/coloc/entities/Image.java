@@ -94,7 +94,7 @@ public class Image {
     //Services
 
 
-    public ArrayList<Image> getAllByIdAnnonce(int idAnnonce) {
+    public static ArrayList<Image> getAllByIdAnnonce(int idAnnonce, Context ctx) {
         ArrayList<Image> images = new ArrayList<Image>();
         String result;
         Image image = new Image();
@@ -136,7 +136,7 @@ public class Image {
         return images;
     }
 
-    public Image getOneByIdAnnonce(int idAnnonce, int id) {
+    public static Image getOneByIdAnnonce(int idAnnonce, int id, Context ctx) {
         String result;
         Image image = new Image();
         DataTask db = new DataTask(ctx);
@@ -176,7 +176,48 @@ public class Image {
         return null;
     }
 
-    public Image updateToCover(int idAnnonce, int id) {
+    public static Image getCoverImageByIdAnnonce(int idAnnonce, Context ctx) {
+        String result;
+        Image image = new Image();
+        DataTask db = new DataTask(ctx);
+
+        String methode = "getCoverImageByIdAnnonce";
+
+        try {
+
+            result = db.execute(methode, Integer.toString(idAnnonce)).get();
+
+            JSONArray ary_jsn = new JSONArray(result);
+            JSONObject obj_jsn = ary_jsn.getJSONObject(0);
+
+            if (!obj_jsn.isNull("id")) {
+                image.setId((Integer) obj_jsn.get("id"));
+                image.setIdAnnonce((Integer) obj_jsn.get("idAnnonce"));
+                image.setTitre(obj_jsn.get("titre").toString());
+                image.setUrl(obj_jsn.get("url").toString());
+
+                if (obj_jsn.get("cover").toString().equals("1")) {
+                    image.setCover(true);
+                } else {
+                    image.setCover(false);
+                }
+
+                return image;
+            }
+
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    public static Image updateToCover(int idAnnonce, int id, Context ctx) {
         String result;
         Image image = new Image();
         DataTask db = new DataTask(ctx);
@@ -216,7 +257,7 @@ public class Image {
         return null;
     }
 
-    public Image updateImage(int id, boolean cover, String url, String titre, int idAnnonce) {
+    public static Image updateImage(int id, boolean cover, String url, String titre, int idAnnonce, Context ctx) {
         String result;
         String c;
         Image image = new Image();
@@ -257,7 +298,7 @@ public class Image {
         return null;
     }
 
-    public Boolean removeImage(int id) {
+    public static Boolean removeImage(int id, Context ctx) {
         String result;
 
         DataTask db = new DataTask(ctx);
@@ -285,7 +326,7 @@ public class Image {
     }
 
 
-    public Image addImage(boolean cover, String url, String titre, int idAnnonce) {
+    public static Image addImage(boolean cover, String url, String titre, int idAnnonce, Context ctx) {
         String result;
         String c;
         Image image = new Image();

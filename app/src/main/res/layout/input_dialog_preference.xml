@@ -11,7 +11,7 @@
         android:text="Preference"
         android:gravity="center"
         android:textSize="35sp"
-        android:background="@color/pinkGirl" />
+        android:background="@color/Xpink" />
 
 
     <LinearLayout
@@ -36,7 +36,7 @@
             android:layout_height="match_parent"
             android:layout_margin="5dp"
 
-            android:background="@color/BlueBoy"
+            android:background="@color/XdarkBlue"
             android:gravity="center"
 
             android:id="@+id/checher" />

@@ -3,6 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="pinkGirl">#EF526D</color>
-    <color name="BlueBoy">#6ABEC8</color>
+    <color name="Xpink">#EF4762</color>
+    <color name="XdarkBlue">#086687</color>
+    <color name="Xcyan">#49B4C0</color>
+    <color name="XGrey">#5C5E5C</color>
+    <color name="XWhite">#FFFFFF</color>
 </resources>

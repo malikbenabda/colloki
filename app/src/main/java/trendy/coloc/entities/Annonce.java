@@ -459,8 +459,11 @@ public class Annonce {
 
     //** Recherche*****************************************************************
 
-    public ArrayList<Annonce> selectByProperties(ArrayList<Annonce> searchList, Map<String, String> propsSelection) throws JSONException {
+    public static ArrayList<Annonce> selectByProperties(ArrayList<Annonce> searchList, Map<String, String> propsSelection) {
         ArrayList<Annonce> annonceArrayList = new ArrayList<Annonce>();
+        if (propsSelection.isEmpty())
+            return searchList;
+
         for (Annonce annonce : searchList) {
             //parcourir liste des annnonces
             Map<String, String> annonceProperty = ConverterTools.JSONstringToMap(annonce.property);

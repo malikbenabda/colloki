@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    tools:context=".AnnonceList"
+    android:orientation="horizontal"
+    android:background="@color/XGrey"
+    android:weightSum="10"
+    android:layout_height="wrap_content">
+
+
+    <ImageView
+        android:id="@+id/rowImage"
+        android:layout_weight="3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxHeight="150dp"
+        android:maxWidth="150dp"
+        android:background="@color/Xcyan" />
+
+    <LinearLayout
+        android:background="@color/XdarkBlue"
+
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:weightSum="5"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/rowTitle"
+            android:background="@color/XWhite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:hint="Title" />
+
+        <TextView
+            android:id="@+id/rowPrix"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="@color/XGrey" />
+
+        <TextView
+            android:id="@+id/rowDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/Xpink"
+            android:layout_weight="1" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
