@@ -4,20 +4,97 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <provider
+        android:name="com.facebook.FacebookContentProvider"
+        android:authorities="com.facebook.app.FacebookContentProvider277947075908357"
+        android:exported="true" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/removeicon"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AnnonceList">
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ConnectionNative" />
+        <activity android:name=".FbLogin" />
+        <activity
+            android:name=".RegisterActivity"
+            android:label="@string/title_activity_register"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".PrefActivity"
+            android:label="@string/title_activity_pref"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MenuActivity"
+            android:label="@string/title_activity_menu"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ListDmdsActivity"
+            android:label="@string/title_activity_list_dmds"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".UpdateDemmande"
+            android:label="@string/title_activity_update_demmande"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".tools.NotificationView"
+            android:label="@string/title_activity_update_demmande"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DemandeColocationActivity"
+            android:label="@string/title_activity_demande_colocation"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DemandeColocationSearchActivity"
+            android:label="@string/title_activity_demande_colocation_search"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ProfileActivity"
+            android:label="@string/title_activity_profile"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <service android:name=".tools.FirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".tools.FirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name=".ListeDesDemandesActivity"
+            android:label="@string/title_activity_liste_des_demandes"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DemandeColocationActivityShow"
+            android:label="@string/title_activity_demande_colocation_activity_show"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+
         <activity android:name=".AnnonceEdit" />
         <activity android:name=".AnnonceAjout" />
         <activity android:name=".ImageAnnonceEdit"></activity>

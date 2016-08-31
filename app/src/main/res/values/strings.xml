@@ -12,4 +12,56 @@
     <string name="title_activity_annonce_floater">AnnonceFloater</string>
     <string name="action_settings">Settings</string>
 
+
+    <string name="facebook_app_id">277947075908357</string>
+    <string name="title_activity_register">RegisterActivity</string>
+
+    <string name="spinner_title">DateNaiss</string>
+
+    <string name="status_prompt">Etat civil</string>
+    <string name="gender_prompt">Sexe</string>
+
+    <string-array name="status_arrays">
+        <item>Célibataire</item>
+        <item>Marié(e)</item>
+        <item>Divorcé(e)</item>
+        <item>Veuf(veuve) </item>
+        <item>En couple</item>
+        <item>Fiancé(e)</item>
+    </string-array>
+
+
+    <string-array name="villes_arrays">
+        <item>Ariana</item>
+        <item>Sousse</item>
+        <item>Beja</item>
+        <item>Sfax </item>
+        <item>Kef</item>
+        <item>Zarzis</item>
+    </string-array>
+
+
+    <string-array name="gender_arrays">
+        <item>Homme</item>
+        <item>Femme</item>
+    </string-array>
+    <string name="title_activity_pref">PrefActivity</string>
+    <string name="title_activity_dmd_coloc">DmdColocActivity</string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="title_activity_list_dmds">ListDmdsActivity</string>
+    <string name="title_activity_update_demmande">UpdateDemmande</string>
+    <string name="title_activity_demande_colocation">DemandeColocationActivity</string>
+    <string name="title_activity_demande_colocation_search">DemandeColocationSearchActivity</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
+    <string name="title_activity_liste_des_demandes">ListeDesDemandesActivity</string>
+    <string name="title_activity_demande_colocation_activity_show">DemandeColocationActivityShow
+    </string>
+
+
 </resources>
