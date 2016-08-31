@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff">
+
+        <!--  Header  Starts-->
+        <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="5dip"
+            android:paddingBottom="5dip">
+            <!-- Logo Start-->
+
+            <!-- Logo Ends -->
+        </LinearLayout>
+        <!--  Header Ends -->
+        <!-- Footer Start -->
+        <LinearLayout
+            android:id="@+id/footer"
+            android:layout_width="fill_parent"
+            android:layout_height="90dip"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"></LinearLayout>
+        <!-- Footer Ends -->
+
+        <!-- Login Form -->
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:layout_below="@id/header">
+            <!--  Email Label -->
+
+            <TextView
+                android:layout_width="258dp"
+                android:layout_height="50dp"
+                android:textSize="24dp"
+                android:textColor="#372c24"
+                android:layout_gravity="center"
+                android:text="Demande de colocation" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#372c24"
+                android:text="Titre" />
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:id="@+id/et_titre"
+                android:inputType="text"
+                android:layout_marginBottom="20dip"
+                android:singleLine="true" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#372c24"
+                android:text="ville" />
+
+            <Spinner
+                android:id="@+id/spinner_vl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/villes_arrays"
+                android:layout_marginTop="6dp"
+                android:prompt="@string/villes_prompt" />
+
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#372c24"
+                android:text="Je cherche" />
+
+            <RadioGroup
+                android:layout_width="fill_parent"
+                android:layout_height="48dp"
+                android:layout_below="@+id/imageView"
+                android:layout_marginTop="8dp"
+                android:weightSum="1"
+                android:orientation="horizontal"
+                android:id="@+id/villapart"
+                android:layout_alignLeft="@+id/textView2"
+                android:layout_alignStart="@+id/textView2"
+                android:layout_alignRight="@+id/textView3"
+                android:layout_alignEnd="@+id/textView3">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Villa"
+                    android:id="@+id/villa_rb"
+                    android:checked="false" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Appart"
+                    android:id="@+id/apart_rb"
+                    android:checked="true"
+                    android:layout_weight="0.13" />
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#372c24"
+                android:text="Nombre de chambres" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:id="@+id/et_nbchambres"
+                android:inputType="number"
+                android:layout_marginBottom="20dip"
+                android:singleLine="true" />
+
+            <!--  Password Label -->
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#372c24"
+                android:text="Nombre de colocataires" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:singleLine="true"
+                android:id="@+id/et_nbcolocs"
+                android:inputType="number" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#372c24"
+                android:text="Prix Min" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:id="@+id/et_pmin"
+                android:inputType="number"
+
+                android:singleLine="true" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#372c24"
+                android:text="Prix Max" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dip"
+                android:id="@+id/et_pmax"
+                android:inputType="number"
+                android:layout_marginBottom="20dip"
+                android:singleLine="true" />
+
+            <RadioGroup
+                android:layout_width="fill_parent"
+                android:layout_height="90dp"
+                android:layout_below="@+id/imageView"
+                android:layout_marginTop="8dp"
+                android:weightSum="1"
+                android:id="@+id/gfm"
+
+                android:layout_alignLeft="@+id/textView2"
+                android:layout_alignStart="@+id/textView2"
+                android:layout_alignRight="@+id/textView3"
+                android:layout_alignEnd="@+id/textView3">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hommes"
+                    android:id="@+id/gars_rb"
+                    android:checked="false" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Filles"
+                    android:id="@+id/filles_rb"
+                    android:checked="false"
+                    android:layout_weight="0.13" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mixte"
+                    android:id="@+id/mixte_rb"
+                    android:checked="true"
+                    android:layout_weight="0.13" />
+            </RadioGroup>
+
+            <!-- Login button -->
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dip"
+                android:layout_below="@id/header">
+
+                <Button
+                    android:id="@+id/bdate_dmd_coloc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dip"
+                    android:onClick="setDate"
+                    android:text="Periode1"
+                    android:layout_gravity="center_horizontal" />
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="155dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="#372c24"
+                    android:text="date1"
+
+                    android:id="@+id/dateText1" />
+
+
+                <Button
+                    android:id="@+id/bdate2_dmd_coloc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dip"
+                    android:onClick="setDate2"
+                    android:text="Periode2"
+                    android:layout_gravity="center_horizontal" />
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="155dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="#372c24"
+                    android:text="date2"
+
+                    android:id="@+id/dateText2" />
+
+                <Button
+                    android:id="@+id/b_custom_creteria"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dip"
+                    android:onClick="CustomCre"
+                    android:text="creer mes propores criters"
+                    android:layout_gravity="center_horizontal" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btndmd"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:text="Envoyer demande" />
+            <!-- Link to Registration Screen -->
+        </LinearLayout>
+        <!-- Login Form Ends -->
+    </RelativeLayout>
+</ScrollView>

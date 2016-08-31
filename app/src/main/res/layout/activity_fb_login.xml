@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:id="@+id/img_fb" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/info3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/connec3"
+        android:text="Bienvuenue!"
+        android:layout_alignParentLeft="true"
+        android:visibility="gone"
+        android:layout_alignParentTop="true"
+        android:textSize="28sp" />
+
+    <com.facebook.login.widget.ProfilePictureView
+        android:id="@+id/image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/connec3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="33dp" />
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/connec3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="164dp" />
+
+</RelativeLayout>

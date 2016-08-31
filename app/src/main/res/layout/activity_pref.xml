@@ -1,0 +1,107 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/p1"
+        android:text="Fumeur"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:textSize="24dp" />
+
+    <RadioGroup
+        android:layout_width="fill_parent"
+        android:layout_height="90dp"
+        android:layout_below="@+id/imageView"
+        android:layout_marginTop="58dp"
+        android:weightSum="1"
+        android:id="@+id/prefs1"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_alignRight="@+id/textView3"
+        android:layout_alignEnd="@+id/textView3">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:text="Fumeur"
+            android:id="@+id/fum"
+            android:checked="true"
+            android:textSize="25dp" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Non Fumeur"
+            android:id="@+id/nfum"
+
+            android:checked="false"
+            android:textSize="25dp"
+            android:layout_weight="0.13" />
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/p2"
+        android:text="Animaux"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:textSize="24dp" />
+
+    <RadioGroup
+        android:layout_width="fill_parent"
+        android:layout_height="90dp"
+        android:layout_below="@+id/imageView"
+        android:layout_marginTop="58dp"
+        android:weightSum="1"
+        android:id="@+id/prefs2"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_alignRight="@+id/textView3"
+        android:layout_alignEnd="@+id/textView3">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="aime les animaux"
+            android:id="@+id/an"
+
+            android:checked="true"
+            android:textSize="25dp"
+            android:layout_weight="0.13" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:text="n&apos;aime pas les animaux"
+            android:id="@+id/nan"
+
+            android:checked="false"
+            android:textSize="25dp" />
+
+    </RadioGroup>
+
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirmer"
+        android:id="@+id/conf_prefs"
+        android:layout_gravity="right" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="autres preferences"
+        android:onClick="otherPrefs"
+        android:id="@+id/autre_prfs" />
+
+
+</LinearLayout>
