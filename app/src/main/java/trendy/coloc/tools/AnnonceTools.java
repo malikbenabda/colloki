@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import trendy.coloc.entities.Annonce;
 import trendy.coloc.entities.Property;
 
 /**
@@ -13,6 +14,9 @@ public class AnnonceTools {
 
 
     public static ArrayList<Property> tempProps = new ArrayList<Property>();
+    public static Annonce tempAnnonce = new Annonce();
+
+
     public static List<String> villes = Arrays.asList("sousse", "nabel", "sfax");
 
     public final static String[] keySuggestions = new String[]{

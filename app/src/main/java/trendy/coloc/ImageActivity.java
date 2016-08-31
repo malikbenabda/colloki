@@ -3,20 +3,27 @@ package trendy.coloc;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import java.io.IOException;
+import com.nguyenhoanglam.imagepicker.activity.ImagePicker;
+import com.nguyenhoanglam.imagepicker.activity.ImagePickerActivity;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
-import trendy.coloc.tools.UserPicture;
+import trendy.coloc.entities.Annonce;
+import trendy.coloc.entities.Image;
+import trendy.coloc.tools.AnnonceTools;
 
 public class ImageActivity extends AppCompatActivity {
 
@@ -28,19 +35,85 @@ public class ImageActivity extends AppCompatActivity {
 
     public static final String IMAGE_TYPE = "image/*";
 
-    private ImageView selectedImagePreview;
-    public static ArrayList<Bitmap> images;
+    private ImageView imageView1, imageView2, imageView3, imageView4, imageView5, imageViewCover;
+    private RelativeLayout detailsImagesRL;
+    private Button btnValidate;
+    private static ArrayList<com.nguyenhoanglam.imagepicker.model.Image> images;
+    private Annonce annonce;
+    private Image imageEntity;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.annonce_images_edit);
+        btnValidate = (Button) findViewById(R.id.validateImagesAdd);
+        imageView1 = (ImageView) findViewById(R.id.annonceDetailImage1);
+        imageView2 = (ImageView) findViewById(R.id.annonceDetailImage2);
+        imageView3 = (ImageView) findViewById(R.id.annonceDetailImage3);
 
-        // no need to cast to button view here since we can add a listener to any view, this
-        // is the single image selection
-        findViewById(R.id.btn_pick_single_image).setOnClickListener(new View.OnClickListener() {
+        imageView4 = (ImageView) findViewById(R.id.annonceDetailImage4);
+        imageView5 = (ImageView) findViewById(R.id.annonceDetailImage5);
+        imageViewCover = (ImageView) findViewById(R.id.imageCoverEdit);
+        detailsImagesRL = (RelativeLayout) findViewById(R.id.detailsImagesRL);
 
-            public void onClick(View arg0) {
+        Picasso.with(ImageActivity.this).load(imageEntity.getUrl());
 
+        //get annonces and put them in views same for other 5 images of details
+        ArrayList<trendy.coloc.entities.Image> imagelist = Image.getAllByIdAnnonce(AnnonceTools.tempAnnonce.getId(), ImageActivity.this);
+        if (!(imagelist.isEmpty() || imagelist == null) && imagelist.size() > 4) { //fillup
+            //if its cover set it to cover else add it to image next detail
+            if (imagelist.get(0).isCover()) {
+                Picasso.with(ImageActivity.this).load(imagelist.get(0).getUrl()).into(imageViewCover);
+            } else { //put it in imageview 1
+                Picasso.with(ImageActivity.this).load(imagelist.get(0).getUrl()).into(imageView1);
+            }
+
+            //if its cover set it to cover else add it to image next detail
+            if (imagelist.get(1).isCover()) {
+                Picasso.with(ImageActivity.this).load(imagelist.get(1).getUrl()).into(imageViewCover);
+            } else { //put it in imageview 2
+                Picasso.with(ImageActivity.this).load(imagelist.get(1).getUrl()).into(imageView2);
+            }
+
+
+            //if its cover set it to cover else add it to image next detail
+            if (imagelist.get(2).isCover()) {
+                Picasso.with(ImageActivity.this).load(imagelist.get(2).getUrl()).into(imageViewCover);
+            } else { //put it in imageview 3
+                Picasso.with(ImageActivity.this).load(imagelist.get(2).getUrl()).into(imageView3);
+            }
+
+
+            //if its cover set it to cover else add it to image next detail
+            if (imagelist.get(3).isCover()) {
+                Picasso.with(ImageActivity.this).load(imagelist.get(3).getUrl()).into(imageViewCover);
+            } else { //put it in imageview 4
+                Picasso.with(ImageActivity.this).load(imagelist.get(3).getUrl()).into(imageView4);
+            }
+
+
+            //if its cover set it to cover else add it to image next detail
+            if (imagelist.get(4).isCover()) {
+                Picasso.with(ImageActivity.this).load(imagelist.get(4).getUrl()).into(imageViewCover);
+            } else { //put it in imageview 5
+                Picasso.with(ImageActivity.this).load(imagelist.get(4).getUrl()).into(imageView5);
+            }
+
+
+        }
+
+
+        btnValidate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //verification des entrées des images
+
+
+            }
+        });
+        imageViewCover.setOnLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(View arg0) {
                 // in onCreate or any event where your want the user to
                 // select a file
                 Intent intent = new Intent();
@@ -48,25 +121,24 @@ public class ImageActivity extends AppCompatActivity {
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent,
                         getString(R.string.select_picture)), SELECT_SINGLE_PICTURE);
+                return false;
             }
         });
-
         // multiple image selection
-        findViewById(R.id.btn_pick_multiple_images).setOnClickListener(new View.OnClickListener() {
+        detailsImagesRL.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onLongClick(View v) {
+                ImagePicker.create(ImageActivity.this).multi()
+                        .multi() // multi mode (default mode)
+                        .limit(5) // max images can be selected
+                        .showCamera(false) // show camera or not (true by default)
+                        .start(SELECT_MULTIPLE_PICTURE); // start image picker activity with request code
 
-                Intent intent = new Intent();
-                intent.setType(IMAGE_TYPE);
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                // this line is different here !!
-                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-                startActivityForResult(Intent.createChooser(intent,
-                        getString(R.string.select_picture)), SELECT_MULTIPLE_PICTURE);
+                return false;
             }
+
         });
 
-        selectedImagePreview = (ImageView) findViewById(R.id.image_preview);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -74,46 +146,34 @@ public class ImageActivity extends AppCompatActivity {
             if (requestCode == SELECT_SINGLE_PICTURE) {
 
                 Uri selectedImageUri = data.getData();
+                String selectedImagePath = getPath(selectedImageUri);
+                //upload image withe selectedImagepath
+
+                //upload image to ftp  returns url to newCoverURL
+                //fix later
+                String newCoverURL = "http://www.homedesignideasplans.com/wp-content/uploads/2015/08/2-bedroom-house_2.jpg";
+                Picasso.with(ImageActivity.this).load(newCoverURL).into(imageViewCover);
+            }
+            if (requestCode == SELECT_MULTIPLE_PICTURE && data != null) {
+                images = data.getParcelableArrayListExtra(ImagePickerActivity.INTENT_EXTRA_SELECTED_IMAGES);
                 try {
-                    selectedImagePreview.setImageBitmap(new UserPicture(selectedImageUri, getContentResolver()).getBitmap());
-                } catch (IOException e) {
-                    Log.e(ImageActivity.class.getSimpleName(), "Failed to load image", e);
-                }
-                // original code
-//                String selectedImagePath = getPath(selectedImageUri);
-//                selectedImagePreview.setImageURI(selectedImageUri);
-            } else if (requestCode == SELECT_MULTIPLE_PICTURE) {
-                //And in the Result handling check for that parameter:
-                if (Intent.ACTION_SEND_MULTIPLE.equals(data.getAction())
-                        && data.hasExtra(Intent.EXTRA_STREAM)) {
-                    // retrieve a collection of selected images
-                    ArrayList<Parcelable> list = data.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
-                    // iterate over these images
-                    if (list != null) {
-                        for (Parcelable parcel : list) {
-                            Uri uri = (Uri) parcel;
-                            try {
-                                images.add(new UserPicture(uri, getContentResolver()).getBitmap());
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
+                    Bitmap myBitmap = null;
+                    myBitmap = BitmapFactory.decodeFile(images.get(0).getPath());
+                    imageView1.setImageBitmap(myBitmap);
 
-                    // for now just show the last picture
-                    if (!list.isEmpty()) {
-                        Uri imageUri = (Uri) list.get(list.size() - 1);
+                    myBitmap = BitmapFactory.decodeFile(images.get(1).getPath());
+                    imageView2.setImageBitmap(myBitmap);
 
-                        try {
-                            selectedImagePreview.setImageBitmap(new UserPicture(imageUri, getContentResolver()).getBitmap());
-                        } catch (IOException e) {
-                            Log.e(ImageActivity.class.getSimpleName(), "Failed to load image", e);
-                        }
-                        // original code
-//                        String selectedImagePath = getPath(imageUri);
-//                        selectedImagePreview.setImageURI(imageUri);
-//                        displayPicture(selectedImagePath, selectedImagePreview);
-                    }
+                    myBitmap = BitmapFactory.decodeFile(images.get(2).getPath());
+                    imageView3.setImageBitmap(myBitmap);
+
+                    myBitmap = BitmapFactory.decodeFile(images.get(3).getPath());
+                    imageView4.setImageBitmap(myBitmap);
+
+                    myBitmap = BitmapFactory.decodeFile(images.get(4).getPath());
+                    imageView5.setImageBitmap(myBitmap);
+                } finally {
+
                 }
             }
         } else {

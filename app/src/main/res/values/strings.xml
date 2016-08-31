@@ -45,6 +45,8 @@
         <item>Homme</item>
         <item>Femme</item>
     </string-array>
+
+
     <string name="title_activity_pref">PrefActivity</string>
     <string name="title_activity_dmd_coloc">DmdColocActivity</string>
     <string name="title_activity_menu">MenuActivity</string>

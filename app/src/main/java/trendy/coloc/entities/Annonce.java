@@ -157,7 +157,7 @@ public class Annonce {
   *************************************************************/
 
 
-    public ArrayList<Annonce> getAllByKey(String key, String value) {
+    public static ArrayList<Annonce> getAllByKey(String key, String value, Context ctx) {
         ArrayList<Annonce> annonces = new ArrayList<Annonce>();
         String result;
         Annonce annonce = new Annonce();
@@ -214,7 +214,7 @@ public class Annonce {
      * @param jsonString
      * @return
      */
-    public ArrayList<Annonce> getAllByKeys(String jsonString) {
+    public static ArrayList<Annonce> getAllByKeys(String jsonString, Context ctx) {
         ArrayList<Annonce> annonces = new ArrayList<Annonce>();
         String result;
         Annonce annonce = new Annonce();
@@ -271,7 +271,7 @@ public class Annonce {
      * @param id
      * @return
      */
-    public Annonce getOneById(int id) {
+    public static Annonce getOneById(int id, Context ctx) {
         String result;
         Annonce annonce = new Annonce();
         DataTask db = new DataTask(ctx);
@@ -327,8 +327,8 @@ public class Annonce {
      * @param state
      * @return @Annonce_updated
      */
-    public Annonce updateAnnonce(int id, String titre, String property, String user, String city, float prix, boolean state,
-                                 Date createdDate, Date startDate, Date endDate ) {
+    public static Annonce updateAnnonce(int id, String titre, String property, String user, String city, float prix, boolean state,
+                                        Date createdDate, Date startDate, Date endDate, Context ctx) {
         String result;
         Annonce annonce = new Annonce();
         DataTask db = new DataTask(ctx);
@@ -380,7 +380,8 @@ public class Annonce {
         return null;
     }
 
-    public Annonce addAnnonce(int id, String titre, String property, String user, String city, float prix, boolean state ,  Date createdDate, Date startDate, Date endDate) {
+    public static Annonce addAnnonce(int id, String titre, String property, String user, String city, float prix, boolean state
+            , Date createdDate, Date startDate, Date endDate, Context ctx) {
         String result;
         Annonce annonce = new Annonce();
         DataTask db = new DataTask(ctx);
@@ -429,7 +430,7 @@ public class Annonce {
         return null;
     }
 
-    public Boolean removeAnnonce(int id) {
+    public static Boolean removeAnnonce(int id, Context ctx) {
         String result;
 
         DataTask db = new DataTask(ctx);
@@ -492,10 +493,6 @@ public class Annonce {
         }
         return result;
     }
-
-
-
-
 
 
 }

@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,7 +28,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Map;
 
 import trendy.coloc.entities.Annonce;
@@ -58,7 +58,33 @@ public class AnnonceEdit extends Activity {
 
         AnnonceTools.tempProps = new ArrayList<Property>();
 
+        /**
+         * Get annonce from bundle  and put it in editedAnnonce
+         */
+        editedAnnonce = new Annonce();
+        editedAnnonce = AnnonceTools.tempAnnonce;
+        // this is just test the real code is commented
 
+        editedAnnonce.setCity("sfax");
+        editedAnnonce.setTitre("vcxvx");
+        editedAnnonce.setState(true);
+        editedAnnonce.setEndDate(ConverterTools.stringToDate("2017-6-30"));
+        editedAnnonce.setStartDate(ConverterTools.stringToDate("2016-9-1"));
+        editedAnnonce.setPrix(550f);
+        JSONObject a = new JSONObject();
+        try {
+            a.put("description", "this is a meaningless description for test purposes ");
+            a.put("chambres", 3);
+            a.put("Dogs", "0");
+            a.put("Cats", "1");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        /**
+         * Recovered annonce and set to
+         */
         titreET = (EditText) findViewById(R.id.titreET);
         prixET = (EditText) findViewById(R.id.priceET);
         chambresET = (EditText) findViewById(R.id.chambresET);
@@ -78,22 +104,6 @@ public class AnnonceEdit extends Activity {
          * testing
          */
 
-
-        editedAnnonce = new Annonce();
-        editedAnnonce.setCity("sfax");
-        editedAnnonce.setTitre("vcxvx");
-        editedAnnonce.setState(true);
-        editedAnnonce.setEndDate(new Date());
-        editedAnnonce.setStartDate(new Date());
-        editedAnnonce.setPrix(3.55f);
-        JSONObject a = new JSONObject();
-        try {
-            a.put("description", "dqsdqsd");
-            a.put("chambres", "5");
-            a.put("klab", "eyh");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
         editedAnnonce.setProperty(a.toString());
         if (editedAnnonce != null) {
@@ -141,7 +151,6 @@ public class AnnonceEdit extends Activity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Annonce annonce = new Annonce();
                 String titre = titreET.getText().toString();
                 float prix = Float.parseFloat(prixET.getText().toString());
                 int nbrchambre = Integer.parseInt(chambresET.getText().toString());
@@ -165,14 +174,14 @@ public class AnnonceEdit extends Activity {
                     Toast.makeText(AnnonceEdit.this, msg + "la date de fin doit etre apres la date de debut de location", Toast.LENGTH_SHORT).show();
                 } else {
                     //add shit to annonce :)
-                    annonce.setCreatedDate(Calendar.getInstance().getTime());
-                    annonce.setStartDate(ConverterTools.stringToDate(dateStart_s));
-                    annonce.setEndDate(ConverterTools.stringToDate(dateEnd_s));
-                    annonce.setCity(ville.getSelectedItem().toString());
-                    annonce.setPrix(prix);
-                    annonce.setState(true);
-                    annonce.setTitre(titre);
-                    annonce.setUser(SaveSharedPreference.getUserId(getApplicationContext()));
+                    editedAnnonce.setCreatedDate(Calendar.getInstance().getTime());
+                    editedAnnonce.setStartDate(ConverterTools.stringToDate(dateStart_s));
+                    editedAnnonce.setEndDate(ConverterTools.stringToDate(dateEnd_s));
+                    editedAnnonce.setCity(ville.getSelectedItem().toString());
+                    editedAnnonce.setPrix(prix);
+                    editedAnnonce.setState(true);
+                    editedAnnonce.setTitre(titre);
+                    editedAnnonce.setUser(SaveSharedPreference.getUserId(getApplicationContext()));
                     String description = descriptionET.getText().toString();
                     options = new JSONObject();
 
@@ -189,10 +198,18 @@ public class AnnonceEdit extends Activity {
                         e.printStackTrace();
                     }
                     Log.w("option", options.toString());
-                    annonce.setProperty(options.toString());
-
-                    // add annonce to DB
+                    editedAnnonce.setProperty(options.toString());
+                    //clear out used temp array
                     AnnonceTools.tempProps = new ArrayList<Property>();
+
+                    // add annonce to DB that returns annonce with id
+                    AnnonceTools.tempAnnonce = Annonce.updateAnnonce(editedAnnonce.getId(), editedAnnonce.getTitre(), editedAnnonce.getProperty(), editedAnnonce.getUser(), editedAnnonce.getCity(), editedAnnonce.getPrix(), editedAnnonce.isState()
+                            , editedAnnonce.getCreatedDate(), editedAnnonce.getStartDate(), editedAnnonce.getEndDate(), AnnonceEdit.this);
+
+                    // go to imageupdate
+                    Intent intent = new Intent(getBaseContext(), ImageActivity.class);
+                    startActivity(intent);
+
                 }
 
 

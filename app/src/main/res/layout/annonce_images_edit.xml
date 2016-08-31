@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/XdarkBlue" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:weightSum="10"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/coverImageLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:background="@android:color/transparent"
+
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <TextView
+                android:textColor="@color/XWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:background="@android:color/transparent"
+                android:text="Image Cover"
+                android:textSize="25sp" />
+
+            <ImageView
+                android:id="@+id/imageCoverEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:background="@android:color/transparent"
+                android:maxHeight="250dp"
+
+                android:minHeight="150dp"
+                android:minWidth="100dp"
+
+                android:src="@drawable/placeholder" />
+
+        </LinearLayout>
+
+        <HorizontalScrollView
+
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:background="@android:color/transparent"
+            android:fillViewport="false">
+
+            <RelativeLayout
+                android:id="@+id/detailsImagesRL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:background="@android:color/transparent">
+
+                <ImageView
+                    android:id="@+id/annonceDetailImage1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@color/Xcyan"
+                    android:maxHeight="250dp"
+                    android:maxWidth="250dp"
+                    android:minHeight="150dp"
+                    android:minWidth="150dp" />
+
+                <ImageView
+                    android:id="@+id/annonceDetailImage2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_toRightOf="@id/annonceDetailImage1"
+                    android:background="@color/Xpink"
+                    android:maxHeight="250dp"
+                    android:maxWidth="250dp"
+                    android:minHeight="150dp"
+                    android:minWidth="150dp" />
+
+                <ImageView
+                    android:id="@+id/annonceDetailImage3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_toRightOf="@id/annonceDetailImage2"
+                    android:background="@color/Xcyan"
+                    android:maxHeight="250dp"
+                    android:maxWidth="250dp"
+                    android:minHeight="150dp"
+                    android:minWidth="150dp" />
+
+
+                <ImageView
+                    android:id="@+id/annonceDetailImage4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_toRightOf="@id/annonceDetailImage3"
+                    android:background="@color/Xpink"
+                    android:maxHeight="250dp"
+                    android:maxWidth="250dp"
+                    android:minHeight="150dp"
+                    android:minWidth="150dp" />
+
+                <ImageView
+                    android:id="@+id/annonceDetailImage5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_toRightOf="@id/annonceDetailImage4"
+                    android:background="@color/Xcyan"
+                    android:maxHeight="250dp"
+                    android:maxWidth="250dp"
+                    android:minHeight="150dp"
+                    android:minWidth="150dp" />
+
+
+            </RelativeLayout>
+        </HorizontalScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="right">
+
+            <Button
+                android:textColor="@color/XWhite"
+                android:id="@+id/validateImagesAdd"
+                android:background="@color/Xcyan"
+                android:layout_margin="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Valider" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

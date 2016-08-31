@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="villes_arrays">
+    <string-array name="villes_arraysX">
         <item>sousse</item>
         <item>nabel</item>
         <item>monsatir</item>
-        <item>sousse</item>
+        <item>tunis</item>
     </string-array>
 
 </resources>
