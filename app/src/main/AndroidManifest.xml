@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".AnnonceEdit" />
-        <activity android:name=".AnnonceAjout"></activity>
+        <activity android:name=".AnnonceAjout" />
+        <activity android:name=".ImageAnnonceEdit"></activity>
     </application>
 
 </manifest>

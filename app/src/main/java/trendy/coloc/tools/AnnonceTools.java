@@ -27,4 +27,5 @@ public class AnnonceTools {
         }
         return pos;
     }
+
 }

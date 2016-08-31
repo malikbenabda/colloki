@@ -139,6 +139,7 @@ public class AnnonceAjout extends Activity {
 
                     try {
                         options.put("description", description);
+                        options.put("chambres", nbrchambre);
                         for (Property x : AnnonceTools.tempProps) {
                             String key = ((TextView) findViewById(x.getIdkey())).getText().toString();
                             String value = ((EditText) findViewById(x.getIdvalue())).getText().toString();
@@ -151,8 +152,11 @@ public class AnnonceAjout extends Activity {
                     Log.w("option", options.toString());
                     annonce.setProperty(options.toString());
 
-                    // add annonce to DB
+                    //TODO  add annonce to DB  : return object Annonce
                     AnnonceTools.tempProps = new ArrayList<Property>();
+                    //TODO navigate to imageAdding with this annonceId
+
+
                 }
 
 
@@ -195,7 +199,7 @@ public class AnnonceAjout extends Activity {
                 if (checkBox.isChecked()) fvalue_s += "1";
                 else fvalue_s += "0";
 
-                addTab(ftag_s, fvalue_s);
+                addTab(ftag_s, fvalue_s, R.id.optionsLayout);
 
             }
         });
@@ -210,9 +214,9 @@ public class AnnonceAjout extends Activity {
 
     }
 
-    private void addTab(String key, String value) {
+    private void addTab(String key, String value, int rootLayoutId) {
 
-        final LinearLayout optionsLayout = (LinearLayout) findViewById(R.id.optionsLayout);
+        final LinearLayout optionsLayout = (LinearLayout) findViewById(rootLayoutId);
         LinearLayout tab = new LinearLayout(getApplicationContext());
         tab.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 

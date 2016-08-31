@@ -235,7 +235,7 @@ public class AnnonceEdit extends Activity {
                 if (checkBox.isChecked()) fvalue_s += "1";
                 else fvalue_s += "0";
 
-                addTab(ftag_s, fvalue_s);
+                addTab(ftag_s, fvalue_s, R.id.optionsLayout);
 
             }
         });
@@ -250,9 +250,9 @@ public class AnnonceEdit extends Activity {
 
     }
 
-    private void addTab(String key, String value) {
+    private void addTab(String key, String value, int rootLayoutId) {
 
-        final LinearLayout optionsLayout = (LinearLayout) findViewById(R.id.optionsLayout);
+        final LinearLayout optionsLayout = (LinearLayout) findViewById(rootLayoutId);
         LinearLayout tab = new LinearLayout(getApplicationContext());
         tab.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 
@@ -331,7 +331,7 @@ public class AnnonceEdit extends Activity {
             String k = prop.getKey();
             String v = prop.getValue();
             if (!k.equalsIgnoreCase("description") && !k.equalsIgnoreCase("chambres")) {
-                addTab(k, v);
+                addTab(k, v, R.id.optionsLayout);
             }
         }
 
