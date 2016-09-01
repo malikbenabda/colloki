@@ -343,7 +343,7 @@ public class User {
 /////////////////////////////////function converts string to user object:
 
 
-    public User JsonToUser(String ch) {
+    public static User JsonToUser(String ch) {
 
         ArrayList<Critera> preferences = new ArrayList<Critera>();
 
@@ -422,7 +422,7 @@ public class User {
         return user;
     }
 
-    public ArrayList<User> JsonToUsers(String ch) {
+    public static ArrayList<User> JsonToUsers(String ch) {
 
         ArrayList<User> users = new ArrayList<User>();
 
@@ -441,7 +441,7 @@ public class User {
         return users;
     }
 
-    public ArrayList<Critera> JsonPrefrences(String ch) {
+    public static ArrayList<Critera> JsonPrefrences(String ch) {
 
         Critera cr;
         ArrayList<Critera> la = new ArrayList<Critera>();

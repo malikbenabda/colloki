@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.Spinner;
@@ -65,6 +67,7 @@ public class AnnonceAjout extends Activity {
         //selected item will look like a spinner set from XML
         ville.setAdapter(spinnerArrayAdapter);
         dateStartET.setFocusable(false);
+
         dateEndET.setFocusable(false);
         dateStartET.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,10 +155,18 @@ public class AnnonceAjout extends Activity {
                     Log.w("option", options.toString());
                     annonce.setProperty(options.toString());
 
-                    //TODO  add annonce to DB  : return object Annonce
                     AnnonceTools.tempProps = new ArrayList<Property>();
-                    //TODO navigate to imageAdding with this annonceId
 
+                    // add annonce to DB that returns annonce with id
+
+                    try {
+                        AnnonceTools.tempAnnonce = Annonce.addAnnonce(annonce.getTitre(), annonce.getProperty(), annonce.getUser(), annonce.getCity(), annonce.getPrix(), annonce.isState()
+                                , annonce.getCreatedDate(), annonce.getStartDate(), annonce.getEndDate(), AnnonceAjout.this);
+                    } finally {
+                    }
+                    // go to imageupdate
+                    Intent intent = new Intent(getBaseContext(), ImageActivity.class);
+                    startActivity(intent);
 
                 }
 
@@ -244,15 +255,15 @@ public class AnnonceAjout extends Activity {
         p.setIdvalue(idValueET);
 
 
-        TextView removebtn = new TextView(getApplicationContext());
-        removebtn.setBackgroundColor(Color.RED);
-        removebtn.setText("Del");
+        ImageButton removebtn = new ImageButton(getApplicationContext());
+
         parm = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         parm.height = 100;
         parm.width = 150;
         parm.setMargins(50, 25, 50, 25);
 
-        removebtn.setBackgroundResource(R.drawable.removeicon);
+
+        removebtn.setBackgroundResource(R.drawable.effacer);
         removebtn.setLayoutParams(parm);
         removebtn.setOnClickListener(new View.OnClickListener() {
             @Override

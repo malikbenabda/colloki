@@ -298,14 +298,12 @@ public class AnnonceEdit extends Activity {
 
 
         TextView removebtn = new TextView(getApplicationContext());
-        removebtn.setBackgroundColor(Color.RED);
-        removebtn.setText(" X ");
         parm = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         parm.height = 100;
         parm.width = 150;
         parm.setMargins(50, 25, 50, 25);
         removebtn.setLayoutParams(parm);
-        removebtn.setBackgroundResource(R.drawable.removeicon);
+        removebtn.setBackgroundResource(R.drawable.effacer);
         removebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

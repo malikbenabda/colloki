@@ -380,7 +380,7 @@ public class Annonce {
         return null;
     }
 
-    public static Annonce addAnnonce(int id, String titre, String property, String user, String city, float prix, boolean state
+    public static Annonce addAnnonce(String titre, String property, String user, String city, float prix, boolean state
             , Date createdDate, Date startDate, Date endDate, Context ctx) {
         String result;
         Annonce annonce = new Annonce();
@@ -493,6 +493,63 @@ public class Annonce {
         }
         return result;
     }
+
+
+    public static ArrayList<Annonce> searchAnnonceBloxByKeys(String jsonString, Context ctx) {
+        ArrayList<Annonce> annonces = new ArrayList<Annonce>();
+        String result;
+        Annonce annonce = new Annonce();
+        DataTask db = new DataTask(ctx);
+
+        String methode = "searchAnnonceBloxByKeys";
+
+        try {
+            result = db.execute(methode, jsonString).get();
+            JSONArray ary_jsn = new JSONArray(result);
+
+            for (int i = 0; i < ary_jsn.length(); i++) {
+                JSONObject obj_jsn = ary_jsn.getJSONObject(i);
+                annonce.setId((Integer) obj_jsn.get("id"));
+                annonce.setTitre(obj_jsn.get("titre").toString());
+                annonce.setProperty(obj_jsn.get("property").toString().toLowerCase().trim());
+                annonce.setUser(obj_jsn.get("user").toString());
+                annonce.setCity(obj_jsn.get("city").toString());
+                annonce.setPrix((float) obj_jsn.get("prix"));
+                annonce.setStartDate(ConverterTools.stringToDate( obj_jsn.get("startDate").toString()) ) ;
+                annonce.setEndDate(ConverterTools.stringToDate( obj_jsn.get("endDate").toString()) ) ;
+                annonce.setCreatedDate(ConverterTools.stringToDate( obj_jsn.get("createdDate").toString()) ); ;
+
+                if (obj_jsn.get("state").toString().equals("1")) {
+                    annonce.setState(true);
+                } else {
+                    annonce.setState(false);
+                }
+
+                annonces.add(annonce);
+            }
+
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+/* sort by key
+   Collections.sort(annonces, new Comparator<Annonce>() {
+            @Override
+            public int compare(Annonce lhs, Annonce rhs) {
+                return return lhs.key>rhs.key;
+            }
+        });
+  */
+        return annonces;
+    }
+
+
+
+
 
 
 }

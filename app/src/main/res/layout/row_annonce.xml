@@ -5,54 +5,105 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    tools:context=".AnnonceList"
-    android:orientation="horizontal"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
     android:background="@color/XGrey"
-    android:weightSum="10"
-    android:layout_height="wrap_content">
 
+    android:orientation="vertical"
+
+    tools:context=".AnnonceList">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/Xpink">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo32" />
+
+        <TextView
+
+            android:id="@+id/rowTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:text="Affiche Titre ici"
+            android:textColor="@color/XWhite"
+            android:textSize="20sp" />
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/rowImage"
-        android:layout_weight="3"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxHeight="150dp"
-        android:maxWidth="150dp"
-        android:background="@color/Xcyan" />
+
+        android:background="@color/Xpink"
+        android:maxHeight="400dp"
+        android:maxWidth="400dp"
+        android:minHeight="150dp"
+        android:minWidth="100dp" />
 
     <LinearLayout
-        android:background="@color/XdarkBlue"
-
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:weightSum="5"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10">
 
-        <TextView
-            android:id="@+id/rowTitle"
-            android:background="@color/XWhite"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:hint="Title" />
 
-        <TextView
-            android:id="@+id/rowPrix"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:background="@color/XGrey" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:background="@color/XdarkBlue"
+            android:orientation="vertical"
+            android:weightSum="5">
 
-        <TextView
-            android:id="@+id/rowDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/Xpink"
-            android:layout_weight="1" />
+            <TextView
+                android:id="@+id/rowVille"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:background="@color/XWhite"
+                android:hint="Ville"
+                android:minHeight="10dp"
+                android:textColor="@color/XWhite"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/rowPrix"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:background="@color/XGrey"
+                android:minHeight="10dp"
+                android:textColor="@color/XWhite"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/rowDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/Xpink"
+                android:minHeight="10dp"
+                android:textColor="@color/XWhite"
+                android:textSize="15sp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:orientation="horizontal" />
 
 
     </LinearLayout>
-
 
 </LinearLayout>
