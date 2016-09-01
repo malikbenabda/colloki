@@ -38,9 +38,9 @@ public class ImageActivity extends AppCompatActivity {
     private ImageView imageView1, imageView2, imageView3, imageView4, imageView5, imageViewCover;
     private RelativeLayout detailsImagesRL;
     private Button btnValidate;
-    private static ArrayList<com.nguyenhoanglam.imagepicker.model.Image> images;
+    private static ArrayList<com.nguyenhoanglam.imagepicker.model.Image> pickedimages;
     private Annonce annonce;
-    private Image imageEntity;
+    private ArrayList<Image> imagelist;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,10 +56,13 @@ public class ImageActivity extends AppCompatActivity {
         imageViewCover = (ImageView) findViewById(R.id.imageCoverEdit);
         detailsImagesRL = (RelativeLayout) findViewById(R.id.detailsImagesRL);
 
-        Picasso.with(ImageActivity.this).load(imageEntity.getUrl());
 
-        //get annonces and put them in views same for other 5 images of details
-        ArrayList<trendy.coloc.entities.Image> imagelist = Image.getAllByIdAnnonce(AnnonceTools.tempAnnonce.getId(), ImageActivity.this);
+        //get annonces and put them in views same for other 5 pickedimages of details
+        try {
+            imagelist = Image.getAllByIdAnnonce(AnnonceTools.tempAnnonce.getId(), ImageActivity.this);
+        } finally {
+            Toast.makeText(ImageActivity.this, " impossible de recuperer les pickedimages de l'annonce", Toast.LENGTH_SHORT).show();
+        }
         if (!(imagelist.isEmpty() || imagelist == null) && imagelist.size() > 4) { //fillup
             //if its cover set it to cover else add it to image next detail
             if (imagelist.get(0).isCover()) {
@@ -106,8 +109,14 @@ public class ImageActivity extends AppCompatActivity {
         btnValidate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if ((imagelist.isEmpty() || imagelist == null)) {
+                    //add pickedimages
+                    //  Image.addImage(true,imageViewCover.sou)
 
-                //verification des entrées des images
+
+                } else {//update image urls
+
+                }
 
 
             }
@@ -130,7 +139,7 @@ public class ImageActivity extends AppCompatActivity {
             public boolean onLongClick(View v) {
                 ImagePicker.create(ImageActivity.this).multi()
                         .multi() // multi mode (default mode)
-                        .limit(5) // max images can be selected
+                        .limit(5) // max pickedimages can be selected
                         .showCamera(false) // show camera or not (true by default)
                         .start(SELECT_MULTIPLE_PICTURE); // start image picker activity with request code
 
@@ -155,22 +164,22 @@ public class ImageActivity extends AppCompatActivity {
                 Picasso.with(ImageActivity.this).load(newCoverURL).into(imageViewCover);
             }
             if (requestCode == SELECT_MULTIPLE_PICTURE && data != null) {
-                images = data.getParcelableArrayListExtra(ImagePickerActivity.INTENT_EXTRA_SELECTED_IMAGES);
+                pickedimages = data.getParcelableArrayListExtra(ImagePickerActivity.INTENT_EXTRA_SELECTED_IMAGES);
                 try {
                     Bitmap myBitmap = null;
-                    myBitmap = BitmapFactory.decodeFile(images.get(0).getPath());
+                    myBitmap = BitmapFactory.decodeFile(pickedimages.get(0).getPath());
                     imageView1.setImageBitmap(myBitmap);
 
-                    myBitmap = BitmapFactory.decodeFile(images.get(1).getPath());
+                    myBitmap = BitmapFactory.decodeFile(pickedimages.get(1).getPath());
                     imageView2.setImageBitmap(myBitmap);
 
-                    myBitmap = BitmapFactory.decodeFile(images.get(2).getPath());
+                    myBitmap = BitmapFactory.decodeFile(pickedimages.get(2).getPath());
                     imageView3.setImageBitmap(myBitmap);
 
-                    myBitmap = BitmapFactory.decodeFile(images.get(3).getPath());
+                    myBitmap = BitmapFactory.decodeFile(pickedimages.get(3).getPath());
                     imageView4.setImageBitmap(myBitmap);
 
-                    myBitmap = BitmapFactory.decodeFile(images.get(4).getPath());
+                    myBitmap = BitmapFactory.decodeFile(pickedimages.get(4).getPath());
                     imageView5.setImageBitmap(myBitmap);
                 } finally {
 
@@ -197,7 +206,7 @@ public class ImageActivity extends AppCompatActivity {
         }
 
         // try to retrieve the image from the media store first
-        // this will only work for images selected from gallery
+        // this will only work for pickedimages selected from gallery
         String[] projection = {MediaStore.Images.Media.DATA};
         Cursor cursor = managedQuery(uri, projection, null, null, null);
         if (cursor != null) {
@@ -207,7 +216,7 @@ public class ImageActivity extends AppCompatActivity {
             return cursor.getString(column_index);
         }
         // this is our fallback here, thanks to the answer from @mad indicating this is needed for
-        // working code based on images selected using other file managers
+        // working code based on pickedimages selected using other file managers
         return uri.getPath();
     }
 
