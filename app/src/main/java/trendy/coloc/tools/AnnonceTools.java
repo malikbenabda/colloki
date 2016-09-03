@@ -12,16 +12,14 @@ import trendy.coloc.entities.Property;
  */
 public class AnnonceTools {
 
-
+    public static String URL = "https://pixabay.com/static/uploads/photo/2014/06/16/23/39/black-370118_960_720.png";
     public static ArrayList<Property> tempProps = new ArrayList<Property>();
     public static Annonce tempAnnonce = new Annonce();
 
 
-    public static List<String> villes = Arrays.asList("sousse", "nabel", "sfax");
+    public static List<String> villes = Arrays.asList("sousse", "mehdia", "ariana", "nabel", "sfax");
+    public static List<String> keySuggestions = Arrays.asList("Wifi", "chiens", "fumer", "alcool", "chats");
 
-    public final static String[] keySuggestions = new String[]{
-            "Belgium", "France", "Italy", "Germany", "Spain", "aaaa", "abbbb", "aabbb", "abbaaa"
-    };
 
     public static int indexOfItem(String key, List<String> list) {
         int pos = -1;

@@ -20,7 +20,7 @@
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="10dp"
             android:layout_height="wrap_content"
             android:src="@drawable/logo32" />
 
@@ -29,8 +29,9 @@
             android:id="@+id/rowTitle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:layout_weight="2"
+            android:textStyle="bold"
             android:gravity="center_vertical"
             android:text="Affiche Titre ici"
             android:textColor="@color/XWhite"
@@ -42,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:background="@color/Xpink"
+        android:background="@color/Xcyan"
         android:maxHeight="400dp"
         android:maxWidth="400dp"
         android:minHeight="150dp"
@@ -72,7 +73,7 @@
                 android:hint="Ville"
                 android:minHeight="10dp"
                 android:textColor="@color/XWhite"
-                android:textSize="15sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/rowPrix"
@@ -82,7 +83,7 @@
                 android:background="@color/XGrey"
                 android:minHeight="10dp"
                 android:textColor="@color/XWhite"
-                android:textSize="15sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/rowDate"
@@ -92,7 +93,7 @@
                 android:background="@color/Xpink"
                 android:minHeight="10dp"
                 android:textColor="@color/XWhite"
-                android:textSize="15sp" />
+                android:textSize="18sp" />
 
 
         </LinearLayout>

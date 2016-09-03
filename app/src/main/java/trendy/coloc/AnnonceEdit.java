@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -248,9 +247,6 @@ public class AnnonceEdit extends Activity {
                 fvalueET = (EditText) inDialog.findViewById(R.id.value);
                 String fvalue_s = "";
                 fvalue_s = fvalueET.getText().toString();
-                CheckBox checkBox = (CheckBox) inDialog.findViewById(R.id.checher);
-                if (checkBox.isChecked()) fvalue_s += "1";
-                else fvalue_s += "0";
 
                 addTab(ftag_s, fvalue_s, R.id.optionsLayout);
 
@@ -301,6 +297,7 @@ public class AnnonceEdit extends Activity {
         parm = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         parm.height = 100;
         parm.width = 150;
+
         parm.setMargins(50, 25, 50, 25);
         removebtn.setLayoutParams(parm);
         removebtn.setBackgroundResource(R.drawable.effacer);

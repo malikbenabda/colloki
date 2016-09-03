@@ -55,6 +55,7 @@ public class ConverterTools {
     * */
     public static Map<String, String> JSONstringToMap(String jsonString) {
         Map<String, String> map = new HashMap<String, String>();
+        if (!jsonString.isEmpty())
         try {
             JSONObject jsonObject = new JSONObject(jsonString);
             if (jsonObject != JSONObject.NULL) {

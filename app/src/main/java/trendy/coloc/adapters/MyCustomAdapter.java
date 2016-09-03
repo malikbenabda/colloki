@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 import trendy.coloc.R;
 import trendy.coloc.entities.Annonce;
+import trendy.coloc.tools.AnnonceTools;
 import trendy.coloc.tools.ConverterTools;
 
 public class MyCustomAdapter extends ArrayAdapter<Annonce> {
@@ -59,7 +60,7 @@ public class MyCustomAdapter extends ArrayAdapter<Annonce> {
         String date = "de: " + ConverterTools.DateToString(annonce.getStartDate()) + " à " + ConverterTools.DateToString(annonce.getEndDate());
         holder.dateTV.setText(date);
         //   String imageurl = Image.getCoverImageByIdAnnonce(annonce.getId(),context).getUrl();
-        String imageurl = "https://s-media-cache-ak0.pinimg.com/236x/22/31/e5/2231e533e6dc953fac60a33b89744e49.jpg";
+        String imageurl = AnnonceTools.URL;
         Picasso.with(context).load(imageurl).into(holder.coverImageIV);
 
         return row;

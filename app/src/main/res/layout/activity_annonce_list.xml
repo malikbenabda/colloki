@@ -7,17 +7,21 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/bg2"
     tools:context="trendy.coloc.AnnonceList">
     <ListView
         android:id="@+id/annonceListView"
+        android:background="@android:color/transparent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@android:color/transparent"
         android:dividerHeight="25.0sp" />
 
     <ImageButton
+        android:id="@+id/searchAnnonceListPrefs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:src="@drawable/preference" />

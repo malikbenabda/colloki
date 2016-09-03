@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg2"
+    android:background="@drawable/bg3"
     android:orientation="vertical">
 
     <LinearLayout
@@ -17,8 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Criteres de Recherche"
-            android:textColor="@color/Xpink"
-            android:textSize="30sp" />
+            android:textColor="@color/XdarkBlue"
+            android:textSize="25sp" />
     </LinearLayout>
 
     <ScrollView
@@ -28,6 +28,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:orientation="vertical">
 
 
@@ -45,15 +46,16 @@
 
                     android:textColor="@color/XWhite"
 
-                    android:textSize="30sp" />
+                    android:textSize="20sp" />
 
                 <AutoCompleteTextView
                     android:id="@+id/searchVilleTV"
                     android:layout_width="0dp"
+                    android:background="@color/LightWhite"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
                     android:textColor="@color/XWhite"
-                    android:textSize="30sp" />
+                    android:textSize="20sp" />
 
 
             </LinearLayout>
@@ -72,16 +74,18 @@
 
                     android:textColor="@color/XWhite"
 
-                    android:textSize="30sp" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/searchStartdateTV"
                     android:layout_width="0dp"
+                    android:background="@color/LightWhite"
                     android:layout_height="wrap_content"
+
                     android:layout_weight="5"
                     android:inputType="date"
                     android:textColor="@color/XWhite"
-                    android:textSize="30sp" />
+                    android:textSize="20sp" />
 
 
             </LinearLayout>
@@ -100,16 +104,17 @@
 
                     android:textColor="@color/XWhite"
 
-                    android:textSize="30sp" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/searchDateFinTV"
                     android:layout_width="0dp"
+                    android:background="@color/LightWhite"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
                     android:inputType="date"
                     android:textColor="@color/XWhite"
-                    android:textSize="30sp" />
+                    android:textSize="20sp" />
 
 
             </LinearLayout>
@@ -128,16 +133,17 @@
 
                     android:textColor="@color/XWhite"
 
-                    android:textSize="30sp" />
+                    android:textSize="20sp" />
 
-                <TextView
+                <EditText
                     android:id="@+id/searchPrixMin"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:background="@color/LightWhite"
                     android:layout_weight="5"
                     android:inputType="number"
                     android:textColor="@color/XWhite"
-                    android:textSize="30sp" />
+                    android:textSize="20sp" />
 
 
             </LinearLayout>
@@ -156,28 +162,22 @@
 
                     android:textColor="@color/XWhite"
 
-                    android:textSize="30sp" />
+                    android:textSize="20sp" />
 
-                <TextView
+                <EditText
                     android:id="@+id/searchPrixMax"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
+                    android:background="@color/LightWhite"
                     android:inputType="number"
                     android:textColor="@color/XWhite"
-                    android:textSize="30sp" />
+                    android:textSize="20sp" />
 
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/searchOptionalCritLLTab"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
 
-
-            </LinearLayout>
 
             <ImageButton
                 android:id="@+id/btnaddSearchCriteria"
@@ -187,6 +187,16 @@
                 android:layout_margin="10dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ajouter" />
+
+
+            <LinearLayout
+                android:id="@+id/searchOptionalCritLLTab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+            </LinearLayout>
         </LinearLayout>
 
 

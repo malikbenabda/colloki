@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -206,9 +205,6 @@ public class AnnonceAjout extends Activity {
                 fvalueET = (EditText) inDialog.findViewById(R.id.value);
                 String fvalue_s = "";
                 fvalue_s = fvalueET.getText().toString();
-                CheckBox checkBox = (CheckBox) inDialog.findViewById(R.id.checher);
-                if (checkBox.isChecked()) fvalue_s += "1";
-                else fvalue_s += "0";
 
                 addTab(ftag_s, fvalue_s, R.id.optionsLayout);
 
