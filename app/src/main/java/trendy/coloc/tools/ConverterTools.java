@@ -121,6 +121,33 @@ public class ConverterTools {
     }
 
 
+    public static String ImageTo64String(String path, String compresstype_JPEG_PNG, int compressionRate) {
+
+
+        BitmapFactory.Options options = null;
+        options = new BitmapFactory.Options();
+        options.inSampleSize = 3;
+        Bitmap bitmap;
+        bitmap = BitmapFactory.decodeFile(path,
+                options);
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        // Must compress the Image to reduce image size to make upload easy
+        if (compresstype_JPEG_PNG.equalsIgnoreCase("jpeg"))
+            bitmap.compress(Bitmap.CompressFormat.JPEG, compressionRate, stream);
+        else
+            bitmap.compress(Bitmap.CompressFormat.PNG, compressionRate, stream);
+
+        byte[] byte_arr = stream.toByteArray();
+        Log.i("stream", stream.toString());
+        // Encode Image to String
+
+        String encodedString = Base64.encodeToString(byte_arr, 0);
+        Log.i("encoded", encodedString);
+
+
+        return encodedString;
+    }
+
 
 
 
