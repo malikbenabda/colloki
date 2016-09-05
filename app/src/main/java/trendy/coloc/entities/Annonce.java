@@ -14,6 +14,7 @@ import java.util.concurrent.ExecutionException;
 
 import trendy.coloc.backgroundtask.DataTask;
 import trendy.coloc.tools.ConverterTools;
+import trendy.coloc.tools.Keys;
 
 /**
  * Created by malik on 19-Aug-16.
@@ -171,17 +172,18 @@ public class Annonce {
 
             for (int i = 0; i < ary_jsn.length(); i++) {
                 JSONObject obj_jsn = ary_jsn.getJSONObject(i);
-                annonce.setId((Integer) obj_jsn.get("id"));
-                annonce.setTitre(obj_jsn.get("titre").toString());
-                annonce.setProperty(obj_jsn.get("property").toString().toLowerCase().trim());
-                annonce.setUser(obj_jsn.get("user").toString());
-                annonce.setCity(obj_jsn.get("city").toString());
-                annonce.setPrix((float) obj_jsn.get("prix"));
-                annonce.setStartDate(ConverterTools.stringToDate( obj_jsn.get("startDate").toString()) ) ;
-                annonce.setEndDate(ConverterTools.stringToDate( obj_jsn.get("endDate").toString()) ) ;
-                annonce.setCreatedDate(ConverterTools.stringToDate( obj_jsn.get("createdDate").toString()) ); ;
+                annonce.setId((Integer) obj_jsn.get(Keys.ID));
+                annonce.setTitre(obj_jsn.get(Keys.TITRE).toString());
+                annonce.setProperty(obj_jsn.get(Keys.PREFERENCE).toString().toLowerCase().trim());
+                annonce.setUser(obj_jsn.get(Keys.USER).toString());
+                annonce.setCity(obj_jsn.get(Keys.VILLE).toString());
+                annonce.setPrix((float) obj_jsn.get(Keys.PRIX));
+                annonce.setStartDate(ConverterTools.stringToDate(obj_jsn.get(Keys.ANNONCE_DATE_DEBUT).toString()));
+                annonce.setEndDate(ConverterTools.stringToDate(obj_jsn.get(Keys.ANNONCE_DATE_FIN).toString()));
+                annonce.setCreatedDate(ConverterTools.stringToDate(obj_jsn.get(Keys.DATE_CREATED).toString()));
+                ;
 
-                if (obj_jsn.get("state").toString().equals("1")) {
+                if (obj_jsn.get(Keys.STATE).toString().equals("1")) {
                     annonce.setState(true);
                 } else {
                     annonce.setState(false);

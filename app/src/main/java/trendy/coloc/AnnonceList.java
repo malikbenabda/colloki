@@ -1,29 +1,20 @@
 package trendy.coloc;
 
-import android.app.AlertDialog;
-import android.app.DatePickerDialog;
-import android.content.DialogInterface;
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 import trendy.coloc.adapters.MyCustomAdapter;
@@ -37,27 +28,23 @@ public class AnnonceList extends AppCompatActivity {
     private final int ID_DELETE_MARGIN = 20000;
     private final int ID_OPTIONLAYOUT_MARGIN = 30000;
     private MyCustomAdapter listViewAnnonceSearchAdapter;
-    private ArrayList<Annonce> annonces, annoncesFiltered;
+    private ArrayList<Annonce> annonces;
     private JSONObject preferences, z, x, y;
 
-    EditText prixMinET, prixMaxET;
     TextView dateStartET, dateEndET;
     ImageButton btnprefs, btnaddSearchCriteria;
     ArrayAdapter<String> prefAdapter, cityAdapter;
     AutoCompleteTextView villeAC;
     private LinearLayout rootLayout;
+    private ListView annoncesLV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_annonce_list);
-        cityAdapter = new ArrayAdapter<String>(getApplicationContext(),
-                android.R.layout.simple_selectable_list_item, AnnonceTools.villes);
-        prefAdapter = new ArrayAdapter<String>(getApplicationContext(),
-                android.R.layout.simple_list_item_1, AnnonceTools.keySuggestions);
 
-        ListView annoncesLV = (ListView) findViewById(R.id.annonceListView);
-        AnnonceTools.tempProps = new ArrayList<Property>();
+
+        annoncesLV = (ListView) findViewById(R.id.annonceListView);
 
         //Annonces DB fill
         fillupAnnoncesTest();
@@ -72,206 +59,28 @@ public class AnnonceList extends AppCompatActivity {
         btnprefs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDiologue();
+                AnnonceTools.tempProps = new ArrayList<Property>();
+                AnnonceTools.tempProps = new ArrayList<Property>();
+                Intent go2Crits = new Intent(getApplicationContext(), AnnonceSearchPrefsActivity.class);
+                startActivity(go2Crits);
 
 
             }
         });
-
+        annonces = Annonce.searchAnnonceBloxByKeys(AnnonceTools.searchPreferencesJsonString, AnnonceList.this);
         listViewAnnonceSearchAdapter = new MyCustomAdapter(this, R.layout.row_annonce, annonces);
+        listViewAnnonceSearchAdapter.setNotifyOnChange(true);
         annoncesLV.setAdapter(listViewAnnonceSearchAdapter);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
 
-    private void openDiologue() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(AnnonceList.this);
-        LayoutInflater inflater = this.getLayoutInflater();
-        //set dialog layout
-        View searchDialogLayout = inflater.inflate(R.layout.search_dialog_layout, null);
-        villeAC = (AutoCompleteTextView) searchDialogLayout.findViewById(R.id.searchVilleTV);
-        villeAC.setAdapter(cityAdapter);
-        villeAC.setThreshold(0);
+        listViewAnnonceSearchAdapter = new MyCustomAdapter(this, R.layout.row_annonce, annonces);
+        listViewAnnonceSearchAdapter.setNotifyOnChange(true);
+        annoncesLV.setAdapter(listViewAnnonceSearchAdapter);
 
-        dateStartET = (TextView) searchDialogLayout.findViewById(R.id.searchStartdateTV);
-        dateEndET = (TextView) searchDialogLayout.findViewById(R.id.searchDateFinTV);
-        dateEndET.setFocusable(false);
-        dateStartET.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DatePickerDialog dialog = new DatePickerDialog(v.getContext(), new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        dateStartET.setText(year + "-" + monthOfYear + "-" + dayOfMonth);
-                    }
-                }, Calendar.getInstance().get(Calendar.YEAR), 9, 1);
-                dialog.show();
-            }
-        });
-        dateEndET.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DatePickerDialog dialog = new DatePickerDialog(v.getContext(), new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        dateEndET.setText(year + "-" + monthOfYear + "-" + dayOfMonth);
-                    }
-                }, Calendar.getInstance().get(Calendar.YEAR) + 1, 6, 31);
-                dialog.show();
-            }
-        });
-
-
-        btnaddSearchCriteria = (ImageButton) searchDialogLayout.findViewById(R.id.btnaddSearchCriteria);
-        rootLayout = (LinearLayout) searchDialogLayout.findViewById(R.id.searchOptionalCritLLTab);
-        btnaddSearchCriteria.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // add 2 tabs
-                addTab("", "", rootLayout);
-                Toast.makeText(AnnonceList.this, "pref add", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        alertDialog.setView(searchDialogLayout);
-
-
-        /*
-        Configure dialog
-         */
-            /* When positive (yes/ok) is clicked */
-        alertDialog.setPositiveButton("Ajouter", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                for (Property px : AnnonceTools.tempProps) {
-                    px.setKey(((AutoCompleteTextView) rootLayout.findViewById(px.getIdkey())).getText().toString());
-                    px.setValue(((EditText) rootLayout.findViewById(px.getIdvalue())).getText().toString());
-                    ;
-
-                }
-
-
-                // save all prefs in tempprefs
-                //send DB request for a filtrerd annonces lits with theses prefs
-                //result annoncelist is set to filtered annonce array
-                // change adapter data to new annonce filtered  array
-                //addapter . set notification of datat change
-
-            }
-        });
-               /* When negative (No/cancel) button is clicked*/
-        alertDialog.setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
-
-            public void onClick(DialogInterface dialog, int which) {
-                // finish();
-            }
-        });
-
-
-        /**
-         * en of dialog configure
-         */
-
-
-        /**
-         * fill in dialog prefs layout with older prefs
-         *
-         */
-
-        if (!AnnonceTools.tempProps.isEmpty() && AnnonceTools.tempProps != null) {
-            for (Property p : AnnonceTools.tempProps) {
-                addTab(p.getKey(), p.getValue(), rootLayout);
-
-            }
-        }
-
-
-        alertDialog.show();
-
-    }
-
-    private void addTab(String key, String value, final View rootLayout) {
-
-        LinearLayout optionsLayout = (LinearLayout) rootLayout;
-        LinearLayout tab = new LinearLayout(getApplicationContext());
-
-        tab.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        tab.setHorizontalGravity(LinearLayout.HORIZONTAL);
-        tab.setWeightSum(10f);
-        tab.setOrientation(LinearLayout.HORIZONTAL);
-        int order = AnnonceTools.tempProps.size();
-        Property p = new Property();
-        Log.w("add tab", " after creating property");
-        AutoCompleteTextView labelKey = new AutoCompleteTextView(getApplicationContext());
-        labelKey.setBackgroundColor(Color.argb(55, 255, 255, 255));
-        labelKey.setAdapter(prefAdapter);
-        labelKey.setThreshold(1);
-        labelKey.setText(key);
-        labelKey.setHint("Critere");
-        labelKey.setTextSize(16f);
-        labelKey.setTextColor(Color.WHITE);
-
-        LinearLayout.LayoutParams parm = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        parm.weight = 4;
-        parm.width = 0;
-        parm.setMargins(10, 10, 10, 10);
-        labelKey.setLayoutParams(parm);
-        int idLabel = ID_KEY_MARGIN + order;
-        labelKey.setId(idLabel);
-
-        Log.w("add tab", "created label with order " + order + "&& idlabel  = " + idLabel);
-        p.setIdkey(idLabel);
-
-
-        EditText editValue = new EditText(getApplicationContext());
-        editValue.setTextColor(Color.WHITE);
-        editValue.setBackgroundColor(Color.argb(55, 255, 255, 255));
-        parm = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        parm.weight = 5;
-        parm.width = 0;
-        parm.setMargins(10, 10, 10, 10);
-        editValue.setLayoutParams(parm);
-        editValue.setText(value);
-        editValue.setHint("Valeure");
-        int idValueET = ID_VALUE_MARGIN + order;
-        editValue.setId(idValueET);
-        editValue.setTextSize(16f);
-        p.setIdvalue(idValueET);
-        Log.w("add tab", "created valueET with order " + order + "&& id  = " + idValueET);
-
-
-        ImageButton removebtn = new ImageButton(getApplicationContext());
-
-        parm = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        parm.weight = 1;
-        parm.weight = 0;
-        removebtn.setBackgroundResource(R.drawable.effacer);
-        parm.setMargins(10, 10, 10, 10);
-        removebtn.setLayoutParams(parm);
-        removebtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((LinearLayout) rootLayout).removeViewAt(v.getId() - ID_DELETE_MARGIN);
-                AnnonceTools.tempProps.remove(v.getId() - ID_DELETE_MARGIN);
-            }
-        });
-
-        int idremove = ID_DELETE_MARGIN + order;
-        removebtn.setId(idremove);
-        p.setRemovebtn(idremove);
-        Log.w("add tab", "created btn remove with order " + order + "&& idlabel  = " + idremove);
-
-        AnnonceTools.tempProps.add(p);
-
-
-        tab.addView(labelKey);
-        tab.addView(editValue);
-        tab.addView(removebtn);
-        Log.w("add tab", "all views added to tab");
-
-        tab.setId(ID_OPTIONLAYOUT_MARGIN + order);
-        p.setIdOptionLayout(ID_OPTIONLAYOUT_MARGIN + order);
-        optionsLayout.addView(tab);
-
-        Log.w("add tab", "tab views added to option pane");
     }
 
 
@@ -285,8 +94,8 @@ public class AnnonceList extends AppCompatActivity {
 
         try {
             x = new JSONObject().put("chambres", 5).put("description", "dess").put("wifi", "yes");
-            //  y = new JSONObject().put("chambres", 8).put("description", "dess").put("wifi", "yes");
-            //   z = new JSONObject().put("chambres", 5).put("description", "aaa").put("wifi", "no");
+            y = new JSONObject().put("chambres", 8).put("description", "dess").put("wifi", "yes");
+            z = new JSONObject().put("chambres", 5).put("description", "aaa").put("wifi", "no");
 
             //preferences is the chosen criteria for search
             preferences = new JSONObject().put("chambres", 5).put("wifi", "no");
@@ -296,14 +105,17 @@ public class AnnonceList extends AppCompatActivity {
 
 
         Annonce a = new Annonce("titre", "sfax", 500f, true, new Date(), new Date(), new Date(), x.toString(), "1");
-        // Annonce b = new Annonce("7ouma", "nabeul", 250f, true, new Date(), new Date(), new Date(), y.toString(), "1");
-        //  Annonce c = new Annonce("9antawi", "sousse", 888f, true, new Date(), new Date(), new Date(), z.toString(), "1");
+        Annonce b = new Annonce("7ouma", "nabeul", 250f, true, new Date(), new Date(), new Date(), y.toString(), "1");
+        Annonce c = new Annonce("9antawi", "sousse", 888f, true, new Date(), new Date(), new Date(), z.toString(), "1");
         annonces.add(a);
 
-        //  annonces.add(c);
-        //   annonces.add(b);
+        annonces.add(c);
+        annonces.add(b);
+        annonces.add(c);
+        annonces.add(b);
 
 
     }
+
 
 }

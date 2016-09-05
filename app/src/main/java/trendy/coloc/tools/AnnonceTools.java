@@ -15,7 +15,7 @@ public class AnnonceTools {
     public static String URL = "https://pixabay.com/static/uploads/photo/2014/06/16/23/39/black-370118_960_720.png";
     public static ArrayList<Property> tempProps = new ArrayList<Property>();
     public static Annonce tempAnnonce = new Annonce();
-
+    public static String searchPreferencesJsonString = "";
 
     public static List<String> villes = Arrays.asList("sousse", "mehdia", "ariana", "nabel", "sfax");
     public static List<String> keySuggestions = Arrays.asList("Wifi", "chiens", "fumer", "alcool", "chats");
@@ -29,5 +29,6 @@ public class AnnonceTools {
         }
         return pos;
     }
+
 
 }
