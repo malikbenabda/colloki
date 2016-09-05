@@ -47,11 +47,13 @@ public class AnnonceSearchPrefsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_dialog_layout);
+        cityAdapter = new ArrayAdapter<String>(getApplicationContext(),
+                android.R.layout.simple_dropdown_item_1line, AnnonceTools.villes);
 
 
         villeAC = (AutoCompleteTextView) findViewById(R.id.searchVilleTV);
         villeAC.setAdapter(cityAdapter);
-        villeAC.setThreshold(0);
+        villeAC.setThreshold(1);
 
         rootLayout = (LinearLayout) findViewById(R.id.searchOptionalCritLLTab);
 
